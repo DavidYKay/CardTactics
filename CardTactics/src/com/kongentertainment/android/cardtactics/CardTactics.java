@@ -1,4 +1,4 @@
-package com.kongentertainment.android.tactics;
+package com.kongentertainment.android.cardtactics;
 
 import android.app.Activity;
 import android.os.Bundle;
