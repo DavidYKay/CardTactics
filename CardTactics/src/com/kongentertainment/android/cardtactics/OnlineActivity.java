@@ -1,12 +1,9 @@
 package com.kongentertainment.android.cardtactics;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class OnlineActivity extends Activity {
-	
-	private int gameMode;
+public class OnlineActivity extends GameActivity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

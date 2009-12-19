@@ -1,52 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2007 The Android Open Source Project
 
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-  
-          http://www.apache.org/licenses/LICENSE-2.0
-  
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
-
-
-	<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/gameView"
-    />
-	
-	<com.kongentertainment.android.cardtactics.view.GameView
-		android:id="@+id/gameView"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		tileSize="24"
-	/>
-	
-	<!--
-	<RelativeLayout
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent" >
-
-		<TextView
-		 android:id="@+id/text"
-			android:text="@string/snake_layout_text_text"
-			android:visibility="visible"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_centerInParent="true"
-			android:gravity="center_horizontal"
-			android:textColor="#ff8888ff"
-			android:textSize="24sp"/>
-	</RelativeLayout>
-		-->
-</FrameLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent"
+	>
+	<Button android:id="@+id/opponentResource" 
+		android:layout_width="100dp"
+		android:layout_height="80dp" 
+		android:text="Op Resource"
+		android:layout_alignParentTop="true" 
+		android:layout_alignParentLeft="true">
+	</Button>
+	<Button android:id="@+id/command" 
+		android:layout_width="100dp"
+		android:layout_height="wrap_content" 
+		android:text="Command"
+		android:layout_centerVertical="true"
+		android:layout_alignParentLeft="true"
+		>
+	</Button>
+	<Button android:id="@+id/opponentCreatureCards" 
+		android:layout_width="180dp"
+		android:layout_height="130dp" 
+		android:text="CreatureCards"
+		android:layout_alignParentTop="true"
+		android:layout_centerHorizontal="true">
+	</Button>
+	<Button android:id="@+id/creatureCards" 
+		android:layout_width="180dp"
+		android:layout_height="130dp" 
+		android:text="CreatureCards"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true">
+	</Button>
+	<Button android:id="@+id/cardPreview" android:layout_width="140dp"
+		android:layout_height="220dp" android:text="Card Preview"
+		android:layout_centerVertical="true" android:layout_alignParentRight="true">
+	</Button>
+	<Button android:id="@+id/resource" 
+		android:layout_width="100dp"
+		android:layout_height="80dp" 
+		android:text="Resource"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentLeft="true">
+	</Button>
+</RelativeLayout>
