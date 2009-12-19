@@ -28,7 +28,7 @@
 			android:layout_above="@id/mainmenu_OnlineButton" 
 			android:layout_centerHorizontal="true"
 			/>		
-		<Button android:id="@+id/mainmenu_OptionsButton"
+		<Button android:id="@+id/mainmenu_SettingsButton"
 			android:text="@string/mainmenu_button3" 
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content"

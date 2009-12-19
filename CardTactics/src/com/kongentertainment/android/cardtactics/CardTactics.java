@@ -23,7 +23,7 @@ public class CardTactics extends Activity {
 
 		final Button skirmishButton = (Button)this.findViewById(R.id.mainmenu_SkirmishButton);
 		final Button onlineButton   = (Button)this.findViewById(R.id.mainmenu_OnlineButton);
-		final Button optionsButton  = (Button)this.findViewById(R.id.mainmenu_OptionsButton);
+		final Button settingsButton  = (Button)this.findViewById(R.id.mainmenu_SettingsButton);
         skirmishButton.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
         		Intent myIntent = new Intent(CardTactics.this, SkirmishActivity.class);
@@ -47,14 +47,14 @@ public class CardTactics extends Activity {
         onlineButton.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
         		Intent myIntent = new Intent(CardTactics.this, OnlineActivity.class);
-        		Bundle bundle = new Bundle();
-        		//Pass the relevant mode to GameClient
-        		bundle.putInt("com.kongentertainment.android.cardtactics.gamemode", 1);
-        		myIntent.putExtras(bundle);
+//        		Bundle bundle = new Bundle();
+//        		//Pass the relevant mode to GameClient
+//        		bundle.putInt("com.kongentertainment.android.cardtactics.gamemode", 1);
+//        		myIntent.putExtras(bundle);
         		CardTactics.this.startActivity(myIntent);        		
         	}        	
         });
-        optionsButton.setOnClickListener(new View.OnClickListener() {
+        settingsButton.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
         		Intent myIntent = new Intent(CardTactics.this, SettingsActivity.class);
         		//Bundle bundle = new Bundle();

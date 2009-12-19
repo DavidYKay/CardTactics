@@ -3,6 +3,9 @@
     <string name="hello">Hello World, CardTactics!</string>
     <string name="app_name">CardTactics</string>
     <string name="gameView">Gameview goes here!</string>
+    <string name="online">Online mode goes here!</string>
+    <string name="settings">Setttings menu goes here!</string>
+    
 	
 	<string name="mainmenu_button1">Skirmish</string>
 	<string name="mainmenu_button2">Play Online</string>
