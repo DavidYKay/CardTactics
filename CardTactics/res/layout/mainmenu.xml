@@ -3,7 +3,6 @@
 	android:orientation="vertical" 
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	
 	>
  
 	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,28 +14,26 @@
 		android:layout_centerHorizontal="true"
 		>
 		 
-		<Button android:id="@+id/Button02"
-			android:text="@string/mainmenu.button2" 
+		<Button android:id="@+id/mainmenu_OnlineButton"
+			android:text="@string/mainmenu_button2" 
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content"
 			android:layout_centerVertical="true"
 			android:layout_centerHorizontal="true"
 			/>
-		<Button android:id="@+id/Button01"
-			android:text="@string/mainmenu.button1" 
+		<Button android:id="@+id/mainmenu_SkirmishButton"
+			android:text="@string/mainmenu_button1" 
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content" 
-			android:layout_above="@id/Button02" 
+			android:layout_above="@id/mainmenu_OnlineButton" 
 			android:layout_centerHorizontal="true"
 			/>		
-		<Button android:id="@+id/Button03"
-			android:text="@string/mainmenu.button3" 
+		<Button android:id="@+id/mainmenu_OptionsButton"
+			android:text="@string/mainmenu_button3" 
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content"
-			android:layout_below="@id/Button02" 
+			android:layout_below="@id/mainmenu_OnlineButton" 
 			android:layout_centerHorizontal="true"
 			/>
- 
 	</RelativeLayout>
-
 </LinearLayout>
