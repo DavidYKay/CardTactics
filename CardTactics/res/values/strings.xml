@@ -2,4 +2,10 @@
 <resources>
     <string name="hello">Hello World, CardTactics!</string>
     <string name="app_name">CardTactics</string>
+	
+	
+	
+	<string name="mainmenu.button1">Skirmish</string>
+	<string name="mainmenu.button2">Play Online</string>
+	<string name="mainmenu.button3">Options</string>
 </resources>
