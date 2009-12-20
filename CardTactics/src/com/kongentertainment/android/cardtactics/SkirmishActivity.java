@@ -38,12 +38,7 @@ public class SkirmishActivity extends GameActivity {
         setContentView(R.layout.gameview_layout);
         // get handles to the GameView from XML, and its GameThread
         mGameView = (GameView) findViewById(R.id.gameView);
-        mGameThread = mGameView.getThread();
-        
-		//setContentView(R.layout.gameview_layout);
-		//setContentView(R.layout.main);
-		
-		
+        mGameThread = mGameView.getThread();        
 	}
 
   //
