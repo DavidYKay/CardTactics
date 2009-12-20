@@ -1,41 +1,354 @@
 package com.kongentertainment.android.cardtactics.view;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
-import android.view.View;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 
-
+import com.kongentertainment.android.cardtactics.R;
 
 /**
  * Class GameView
- */
-public class GameView extends View {
+ */ 
 
-	public GameView(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-		// TODO Auto-generated constructor stub
+public class GameView extends SurfaceView implements SurfaceHolder.Callback {
+	public class GameThread extends Thread {
+		
+		 /** The state of the game. One of MYTURN, HISTURN, PAUSE, LOSE, or WIN */
+        private int mMode;
+		
+		  /** Indicate whether the surface has been created & is ready to draw */
+        private boolean mRun = false;
+		
+		/**
+         * Current height of the surface/canvas.
+         * 
+         * @see #setSurfaceSize
+         */
+        private int mCanvasHeight = 1;
+        
+        /**
+         * Current width of the surface/canvas.
+         * 
+         * @see #setSurfaceSize
+         */
+        private int mCanvasWidth = 1;
+		
+		  /** Handle to the surface manager object we interact with */
+        private SurfaceHolder mSurfaceHolder;
+        
+        /** Handle to the application context, used to e.g. fetch Drawables. */
+        private Context mContext;
+        
+        /** Message handler used by thread to interact with TextView */
+        private Handler mHandler;
+		
+		Bitmap mBackgroundImage;
+		
+		 public GameThread(SurfaceHolder surfaceHolder, Context context,
+	                Handler handler) {
+	            // get handles to some important objects
+	            mSurfaceHolder = surfaceHolder;
+	            mHandler = handler;
+	            mContext = context;
+
+	            Resources res = context.getResources();
+	            // cache handles to our key sprites & other drawables
+//	            mLanderImage = context.getResources().getDrawable(
+//	                    R.drawable.lander_plain);
+//	            mFiringImage = context.getResources().getDrawable(
+//	                    R.drawable.lander_firing);
+//	            mCrashedImage = context.getResources().getDrawable(
+//	                    R.drawable.lander_crashed);
+
+	            // load background image as a Bitmap instead of a Drawable b/c
+	            // we don't need to transform it and it's faster to draw this way
+	            mBackgroundImage = BitmapFactory.decodeResource(res,
+	                    R.drawable.background);
+	            /*
+	            // Use the regular lander image as the model size for all sprites
+	            mLanderWidth = mLanderImage.getIntrinsicWidth();
+	            mLanderHeight = mLanderImage.getIntrinsicHeight();
+
+	            // Initialize paints for speedometer
+	            mLinePaint = new Paint();
+	            mLinePaint.setAntiAlias(true);
+	            mLinePaint.setARGB(255, 0, 255, 0);
+
+	            mLinePaintBad = new Paint();
+	            mLinePaintBad.setAntiAlias(true);
+	            mLinePaintBad.setARGB(255, 120, 180, 0);
+
+	            mScratchRect = new RectF(0, 0, 0, 0);
+
+	            mWinsInARow = 0;
+	            mDifficulty = DIFFICULTY_MEDIUM;
+
+	            // initial show-up of lander (not yet playing)
+	            mX = mLanderWidth;
+	            mY = mLanderHeight * 2;
+	            mFuel = PHYS_FUEL_INIT;
+	            mDX = 0;
+	            mDY = 0;
+	            mHeading = 0;
+	            mEngineFiring = true;
+	            */
+	        }
+		
+		@Override
+        public void run() {
+            while (mRun) {
+                Canvas c = null;
+                try {
+                    c = mSurfaceHolder.lockCanvas(null);
+                    synchronized (mSurfaceHolder) {
+                    	//if (mMode == STATE_RUNNING) updatePhysics();
+                        doDraw(c);
+                    }
+                } finally {
+                    // do this in a finally so that if an exception is thrown
+                    // during the above, we don't leave the Surface in an
+                    // inconsistent state
+                    if (c != null) {
+                        mSurfaceHolder.unlockCanvasAndPost(c);
+                    }
+                }
+            }
+        }		
+		
+        /**
+         * Draws the ship, fuel/speed bars, and background to the provided
+         * Canvas.
+         */
+        private void doDraw(Canvas canvas) {
+            // Draw the background image. Operations on the Canvas accumulate
+            // so this is like clearing the screen.
+            canvas.drawBitmap(mBackgroundImage, 0, 0, null);
+
+            /*
+            int yTop = mCanvasHeight - ((int) mY + mLanderHeight / 2);
+            int xLeft = (int) mX - mLanderWidth / 2;
+
+            // Draw the fuel gauge
+            int fuelWidth = (int) (UI_BAR * mFuel / PHYS_FUEL_MAX);
+            mScratchRect.set(4, 4, 4 + fuelWidth, 4 + UI_BAR_HEIGHT);
+            canvas.drawRect(mScratchRect, mLinePaint);
+
+            // Draw the speed gauge, with a two-tone effect
+            double speed = Math.sqrt(mDX * mDX + mDY * mDY);
+            int speedWidth = (int) (UI_BAR * speed / PHYS_SPEED_MAX);
+
+            if (speed <= mGoalSpeed) {
+                mScratchRect.set(4 + UI_BAR + 4, 4,
+                        4 + UI_BAR + 4 + speedWidth, 4 + UI_BAR_HEIGHT);
+                canvas.drawRect(mScratchRect, mLinePaint);
+            } else {
+                // Draw the bad color in back, with the good color in front of
+                // it
+                mScratchRect.set(4 + UI_BAR + 4, 4,
+                        4 + UI_BAR + 4 + speedWidth, 4 + UI_BAR_HEIGHT);
+                canvas.drawRect(mScratchRect, mLinePaintBad);
+                int goalWidth = (UI_BAR * mGoalSpeed / PHYS_SPEED_MAX);
+                mScratchRect.set(4 + UI_BAR + 4, 4, 4 + UI_BAR + 4 + goalWidth,
+                        4 + UI_BAR_HEIGHT);
+                canvas.drawRect(mScratchRect, mLinePaint);
+            }
+
+            // Draw the landing pad
+            canvas.drawLine(mGoalX, 1 + mCanvasHeight - TARGET_PAD_HEIGHT,
+                    mGoalX + mGoalWidth, 1 + mCanvasHeight - TARGET_PAD_HEIGHT,
+                    mLinePaint);
+
+
+            // Draw the ship with its current rotation
+            canvas.save();
+            canvas.rotate((float) mHeading, (float) mX, mCanvasHeight
+                    - (float) mY);
+            if (mMode == STATE_LOSE) {
+                mCrashedImage.setBounds(xLeft, yTop, xLeft + mLanderWidth, yTop
+                        + mLanderHeight);
+                mCrashedImage.draw(canvas);
+            } else if (mEngineFiring) {
+                mFiringImage.setBounds(xLeft, yTop, xLeft + mLanderWidth, yTop
+                        + mLanderHeight);
+                mFiringImage.draw(canvas);
+            } else {
+                mLanderImage.setBounds(xLeft, yTop, xLeft + mLanderWidth, yTop
+                        + mLanderHeight);
+                mLanderImage.draw(canvas);
+            }
+            canvas.restore();
+            */
+        }
+        
+        /* Callback invoked when the surface dimensions change. */
+        public void setSurfaceSize(int width, int height) {
+            // synchronized to make sure these all change atomically
+            synchronized (mSurfaceHolder) {
+                mCanvasWidth = width;
+                mCanvasHeight = height;
+
+                // don't forget to resize the background image
+                mBackgroundImage = Bitmap.createScaledBitmap(
+                        mBackgroundImage, width, height, true);
+            }
+        }
+        
+        /**
+         * Sets the game mode. That is, whether we are running, paused, in the
+         * failure state, in the victory state, etc.
+         * 
+         * @see #setState(int, CharSequence)
+         * @param mode one of the STATE_* constants
+         */
+        public void setState(int mode) {
+            synchronized (mSurfaceHolder) {
+                setState(mode, null);
+            }
+        }
+
+        /**
+         * Sets the game mode. That is, whether we are running, paused, in the
+         * failure state, in the victory state, etc.
+         * 
+         * @param mode one of the STATE_* constants
+         * @param message string to add to screen or null
+         */
+        public void setState(int mode, CharSequence message) {
+            /*
+             * This method optionally can cause a text message to be displayed
+             * to the user when the mode changes. Since the View that actually
+             * renders that text is part of the main View hierarchy and not
+             * owned by this thread, we can't touch the state of that View.
+             * Instead we use a Message + Handler to relay commands to the main
+             * thread, which updates the user-text View.
+             */
+            synchronized (mSurfaceHolder) {
+                mMode = mode;
+
+                /*
+                if (mMode == STATE_RUNNING) {
+                    Message msg = mHandler.obtainMessage();
+                    Bundle b = new Bundle();
+                    b.putString("text", "");
+                    b.putInt("viz", View.INVISIBLE);
+                    msg.setData(b);
+                    mHandler.sendMessage(msg);
+                } else {
+                    mRotating = 0;
+                    mEngineFiring = false;
+                    Resources res = mContext.getResources();
+                    CharSequence str = "";
+                    if (mMode == STATE_READY)
+                        str = res.getText(R.string.mode_ready);
+                    else if (mMode == STATE_PAUSE)
+                        str = res.getText(R.string.mode_pause);
+                    else if (mMode == STATE_LOSE)
+                        str = res.getText(R.string.mode_lose);
+                    else if (mMode == STATE_WIN)
+                        str = res.getString(R.string.mode_win_prefix)
+                                + mWinsInARow + " "
+                                + res.getString(R.string.mode_win_suffix);
+
+                    if (message != null) {
+                        str = message + "\n" + str;
+                    }
+
+                    if (mMode == STATE_LOSE) mWinsInARow = 0;
+
+                    Message msg = mHandler.obtainMessage();
+                    Bundle b = new Bundle();
+                    b.putString("text", str.toString());
+                    b.putInt("viz", View.VISIBLE);
+                    msg.setData(b);
+                    mHandler.sendMessage(msg);
+                */
+            }
+        }
+        
+        /**
+         * Used to signal the thread whether it should be running or not.
+         * Passing true allows the thread to run; passing false will shut it
+         * down if it's already running. Calling start() after this was most
+         * recently called with false will result in an immediate shutdown.
+         * 
+         * @param b true to run, false to shut down
+         */
+        public void setRunning(boolean b) {
+            mRun = b;
+        }
+    }
+	
+	 /** The thread that actually draws the animation */
+    private GameThread thread;
+	
+	public GameView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		
+		 // register our interest in hearing about changes to our surface
+        SurfaceHolder holder = getHolder();
+        holder.addCallback(this);
+
+        // create thread only; it's started in surfaceCreated()
+        thread = new GameThread(holder, context, new Handler() {
+            @Override
+            public void handleMessage(Message m) {
+                //mStatusText.setVisibility(m.getData().getInt("viz"));
+                //mStatusText.setText(m.getData().getString("text"));
+            }
+        });
+
+        setFocusable(true); // make sure we get key events
 	}
 
-  //
-  // Fields
-  //
+	  /* Callback invoked when the surface dimensions change. */
+    public void surfaceChanged(SurfaceHolder holder, int format, int width,
+            int height) {
+        thread.setSurfaceSize(width, height);
+    }
 
-  
-  //
-  // Constructors
-  //
-  
-  //
-  // Methods
-  //
+	  /*
+     * Callback invoked when the Surface has been created and is ready to be
+     * used.
+     */
+    public void surfaceCreated(SurfaceHolder holder) {
+        // start the thread here so that we don't busy-wait in run()
+        // waiting for the surface to be created
+        thread.setRunning(true);
+        thread.start();
+    }
 
-
-  //
-  // Accessor methods
-  //
-
-  //
-  // Other methods
-  //
-
+    /*
+     * Callback invoked when the Surface has been destroyed and must no longer
+     * be touched. WARNING: after this method returns, the Surface/Canvas must
+     * never be touched again!
+     */
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        // we have to tell thread to shut down & wait for it to finish, or else
+        // it might touch the Surface after we return and explode
+        boolean retry = true;
+        thread.setRunning(false);
+        while (retry) {
+            try {
+                thread.join();
+                retry = false;
+            } catch (InterruptedException e) {
+            }
+        }
+    }
+    
+    /**
+     * Fetches the animation thread corresponding to this LunarView.
+     * 
+     * @return the animation thread
+     */
+    public GameThread getThread() {
+        return thread;
+    }
 }
