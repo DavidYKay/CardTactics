@@ -6,7 +6,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.kongentertainment.android.cardtactics.view.GameView;
-import com.kongentertainment.android.cardtactics.view.GameView.GameThread;
+import com.kongentertainment.android.cardtactics.view.GameView.GameViewThread;
 
 public class SkirmishActivity extends GameActivity {
 
@@ -14,7 +14,7 @@ public class SkirmishActivity extends GameActivity {
   // Fields
   //
 	private GameView mGameView;
-	private GameThread mGameThread;
+	private GameViewThread mGameViewThread;
 	
   //
   // Constructors
@@ -37,9 +37,9 @@ public class SkirmishActivity extends GameActivity {
         win.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);     
 
         setContentView(R.layout.gameview_layout);
-        // get handles to the GameView from XML, and its GameThread
+        // get handles to the GameView from XML, and its GameViewThread
         mGameView = (GameView) findViewById(R.id.gameView);
-        mGameThread = mGameView.getThread();
+        mGameViewThread = mGameView.getThread();
         
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 	}

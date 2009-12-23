@@ -20,7 +20,7 @@ import com.kongentertainment.android.cardtactics.R;
  */ 
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
-	public class GameThread extends Thread {
+	public class GameViewThread extends Thread {
 		
 		 /** The state of the game. One of MYTURN, HISTURN, PAUSE, LOSE, or WIN */
         private int mMode;
@@ -63,7 +63,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		private Bitmap mResourceCounter;
 		private Bitmap mResourceSymbol;
 		
-		 public GameThread(SurfaceHolder surfaceHolder, Context context,
+		 public GameViewThread(SurfaceHolder surfaceHolder, Context context,
 	                Handler handler) {
 	            // get handles to some important objects
 	            mSurfaceHolder = surfaceHolder;
@@ -354,7 +354,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 	
 	 /** The thread that actually draws the animation */
-    private GameThread thread;
+    private GameViewThread thread;
 	
 	public GameView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -364,7 +364,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         holder.addCallback(this);
 
         // create thread only; it's started in surfaceCreated()
-        thread = new GameThread(holder, context, new Handler() {
+        thread = new GameViewThread(holder, context, new Handler() {
             @Override
             public void handleMessage(Message m) {
                 //mStatusText.setVisibility(m.getData().getInt("viz"));
@@ -416,7 +416,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
      * 
      * @return the animation thread
      */
-    public GameThread getThread() {
+    public GameViewThread getThread() {
         return thread;
     }
 }
