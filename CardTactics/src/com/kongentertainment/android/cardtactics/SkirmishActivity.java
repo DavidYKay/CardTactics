@@ -1,5 +1,6 @@
 package com.kongentertainment.android.cardtactics;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -38,7 +39,9 @@ public class SkirmishActivity extends GameActivity {
         setContentView(R.layout.gameview_layout);
         // get handles to the GameView from XML, and its GameThread
         mGameView = (GameView) findViewById(R.id.gameView);
-        mGameThread = mGameView.getThread();        
+        mGameThread = mGameView.getThread();
+        
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 	}
 
   //

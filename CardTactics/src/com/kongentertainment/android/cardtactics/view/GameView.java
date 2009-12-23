@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.RectF;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -49,7 +50,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         /** Message handler used by thread to interact with TextView */
         private Handler mHandler;
 		
-		Bitmap mBackgroundImage;
+        /** Background bitmap, drawn under everything else. */
+		private Bitmap mBackgroundImage;
+		
+		 /** Scratch rect object. */
+		private RectF mScratchRect;
+		
+		private Bitmap mTestCard;
 		
 		 public GameThread(SurfaceHolder surfaceHolder, Context context,
 	                Handler handler) {
@@ -71,6 +78,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	            // we don't need to transform it and it's faster to draw this way
 	            mBackgroundImage = BitmapFactory.decodeResource(res,
 	                    R.drawable.background);
+				mTestCard = BitmapFactory.decodeResource(res,
+                    R.drawable.bigcard);
 	            /*
 	            // Use the regular lander image as the model size for all sprites
 	            mLanderWidth = mLanderImage.getIntrinsicWidth();
@@ -104,12 +113,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		@Override
         public void run() {
             while (mRun) {
+               	//if (mMode == STATE_RUNNING) updatePhysics();
+            	//Take input
+            	//Make move
                 Canvas c = null;
                 try {
                     c = mSurfaceHolder.lockCanvas(null);
-                    synchronized (mSurfaceHolder) {
-                    	//if (mMode == STATE_RUNNING) updatePhysics();
+                    synchronized (mSurfaceHolder) {                 
+                    	//Draw to screen
                         doDraw(c);
+
                     }
                 } finally {
                     // do this in a finally so that if an exception is thrown
@@ -119,6 +132,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                         mSurfaceHolder.unlockCanvasAndPost(c);
                     }
                 }
+                //Play sounds
             }
         }		
 		
@@ -131,6 +145,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             // so this is like clearing the screen.
             canvas.drawBitmap(mBackgroundImage, 0, 0, null);
 
+            //Draw cards
+            canvas.drawBitmap(mTestCard, 100, 100, null);            
+            
+            //Draw effects
+            
             /*
             int yTop = mCanvasHeight - ((int) mY + mLanderHeight / 2);
             int xLeft = (int) mX - mLanderWidth / 2;
