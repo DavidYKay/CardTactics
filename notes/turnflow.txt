@@ -1,0 +1,81 @@
+New idea!
+    Simultaneous turn-based, like Diplomacy
+
+Resource 
+
+User account
+
+Level progression
+    Life-up
+    H4x - bend the rules
+
+------------------------------
+Before the game:
+Pick 5 cards
+    Hero card
+    Creature card
+    Resource cards - ONE for whole game
+
+Start game:
+    Have 50 resources initially
+    
+First turn:
+    Play a resource
+    Play a creature card
+        Play a basic unit
+Second turn:
+    20 resources mined from resource card
+    
+Every turn:
+    Gathering phase - Get resources - goes into reserve
+    Summoning phase - Play any additional cards
+    Movement/Action phase - Each unit performs 1-2 actions
+        -Move
+        -Attack
+        -Use ability
+    Ability Phase - Any 'abilities'
+    End Turn
+
+Spend resources on:
+    Creatures - Special abilities
+    Resources - Special abilities
+    Avatar    - Special abilities
+    Summon units
+    Equipment?
+    Draw a card
+
+Strategery:
+    2 Rows - unit positioning
+            -Like Final Fantasy
+    Banking
+ 
+Victory Conditions:
+    Destroy the town?
+        Destroy X units?
+    
+Attack:
+    Specifically attack a unit
+        
+Attributes:
+    Range
+
+Rock-Paper-Scissors
+    Melee - Ranged - Casters
+
+    Melee > Ranged (150%)
+    Melee > Casters (200%)
+
+    Ranged < Melee (50%)
+    Ranged > Casters (150%)
+
+    Casters > Melee
+    Casters > Ranged 
+
+Armor Types:
+    
+Monk:
+    High HP
+    Cloth Armor (low AC)
+    High damage
+
+

@@ -1,0 +1,22 @@
+Turn based (collectible) strategy card game, set in Green universe. 
+
+Format: Android Device
+
+Each player starts with one pre chosen hero unit, and one resource card.
+Every turn, resource cards produce resources that can be used to play additional units, items(?) 
+equipment or abilities. It can also be saved.
+
+Heroes are special units that have additional stats and special abilities. If a hero is slain,
+the player looses the game.
+
+Circle
+Square
+Triangle
+
+Soldier
+Tank
+Archer
+Medic
+
+
+
