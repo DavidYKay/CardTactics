@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Handler;
 import android.os.Message;
@@ -57,6 +58,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		private RectF mScratchRect;
 		
 		private Bitmap mTestCard;
+		private Bitmap mLittleCard;
+		private Bitmap mCommandButton;
+		private Bitmap mResourceCounter;
+		private Bitmap mResourceSymbol;
 		
 		 public GameThread(SurfaceHolder surfaceHolder, Context context,
 	                Handler handler) {
@@ -80,6 +85,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	                    R.drawable.background);
 				mTestCard = BitmapFactory.decodeResource(res,
                     R.drawable.bigcard);
+				mLittleCard = BitmapFactory.decodeResource(res,
+                    R.drawable.card);
+				mCommandButton = BitmapFactory.decodeResource(res,
+                    R.drawable.commandbutton);
+				mResourceSymbol = BitmapFactory.decodeResource(res,
+                    R.drawable.resourcesymbol);
+				mResourceCounter = BitmapFactory.decodeResource(res,
+                    R.drawable.resourcecounter);
 	            /*
 	            // Use the regular lander image as the model size for all sprites
 	            mLanderWidth = mLanderImage.getIntrinsicWidth();
@@ -145,8 +158,44 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             // so this is like clearing the screen.
             canvas.drawBitmap(mBackgroundImage, 0, 0, null);
 
-            //Draw cards
-            canvas.drawBitmap(mTestCard, 100, 100, null);            
+			//Center line
+			Paint blackPaint = new Paint();
+			blackPaint.setColor(0xff000000);
+			blackPaint.setStrokeWidth((float) 1.0);
+			blackPaint.setStyle(Paint.Style.STROKE);
+			canvas.drawLine(0, 160, 480, 160, blackPaint);
+
+            //Card Preview
+            canvas.drawBitmap(mTestCard, 7, 75, null);            
+            
+			//Player's back row
+			canvas.drawBitmap(mLittleCard, 120, 242, null);            
+			canvas.drawBitmap(mLittleCard, 192, 242, null);            
+			canvas.drawBitmap(mLittleCard, 264, 242, null);            
+			
+			//Player's front row
+			canvas.drawBitmap(mLittleCard, 192, 164, null);            
+
+			canvas.drawBitmap(mCommandButton, 352, 140, null);            
+
+			//Resource items
+			canvas.drawBitmap(mResourceSymbol, 379, 214, null);            
+			canvas.drawBitmap(mResourceCounter, 363, 183, null);            
+
+			//OPPONENT
+			
+			//Resource items
+			canvas.drawBitmap(mResourceSymbol, 379, 10, null);            
+			canvas.drawBitmap(mResourceCounter, 363, 102, null);            
+
+
+			//Opponent's back row
+			canvas.drawBitmap(mLittleCard, 120, 1, null);            
+			canvas.drawBitmap(mLittleCard, 192, 1, null);            
+			canvas.drawBitmap(mLittleCard, 264, 1, null);            
+			
+			//Opponent's front row
+			canvas.drawBitmap(mLittleCard, 264, 79, null);            
             
             //Draw effects
             
