@@ -20,4 +20,10 @@ public class OnlineActivity extends GameActivity {
 			//userName = bundle.getString("userName");
 		}
 	}
+
+	//Network Steps
+	//CMD SEND
+	//CMD REC
+	//ACK SEND
+	//ACK REC
 }
