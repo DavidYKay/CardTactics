@@ -3,6 +3,7 @@ package com.kongentertainment.android.cardtactics.view;
 import com.kongentertainment.android.cardtactics.model.entities.CreatureCard;
 
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -12,12 +13,12 @@ public class CreatureCardView extends CardView {
     private static final int SWIPE_MIN_DISTANCE = 120;
     private static final int SWIPE_MAX_OFF_PATH = 250;
 	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
-    MyGestureDetector mGestureDetector;
+    GestureDetector mGestureDetector;
 
     public CreatureCardView(CreatureCard card) {
         super(card);
 
-        //mGestureDetector = new GestureDetector(new MyGestureDetector());
+        mGestureDetector = new GestureDetector(new MyGestureDetector());
 
         /*
         setOnTouchListener(new View.OnTouchListener() {
@@ -31,7 +32,6 @@ public class CreatureCardView extends CardView {
     }
  
     //Detect touch
-
     class MyGestureDetector extends SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -42,10 +42,12 @@ public class CreatureCardView extends CardView {
                 }
                 //Swipe down
                 if(e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
-                    
+                    Log.d("CreatureCardView", "DOWNward swipe!");
+                    return true;
                 //Swipe up
                 }  else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
-                
+                    Log.d("CreatureCardView", "UPward swipe!");
+                    return true;
                 }
                 /*
                 if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
@@ -77,6 +79,5 @@ public class CreatureCardView extends CardView {
 	    	return false;
     }
     */
-
     
 }
