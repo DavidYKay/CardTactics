@@ -176,7 +176,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 			//Player's front row
 			canvas.drawBitmap(mLittleCard, 192, 164, null);            
 
-			canvas.drawBitmap(mCommandButton, 352, 140, null);            
+			//canvas.drawBitmap(mCommandButton, 352, 140, null);            
 
 			//Resource items
 			canvas.drawBitmap(mResourceSymbol, 379, 214, null);            
