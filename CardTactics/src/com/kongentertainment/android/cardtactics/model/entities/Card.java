@@ -12,6 +12,7 @@ public abstract class Card {
     //
     protected int mCardID;
     protected CardType mCardType;
+    protected PlayerType mOwner;
   
     //
     // Constructors
@@ -29,6 +30,15 @@ public abstract class Card {
     //
     // Accessor methods
     //
+    public CardID getID() {
+        return mCardID;
+    }
+    public CardType getType() {
+        return mCardType;
+    }
+    public PlayerType getOwner() {
+        return mOwner;
+    }
 
     //
     // Other methods
