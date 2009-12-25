@@ -7,27 +7,31 @@ package com.kongentertainment.android.cardtactics.model.entities;
  */
 public class Card {
 
-  //
-  // Fields
-  //
-
+    //
+    // Fields
+    //
+    protected int mCardID;
+    protected CardType mCardType;
   
-  //
-  // Constructors
-  //
-  public Card () { };
-  
-  //
-  // Methods
-  //
+    //
+    // Constructors
+    //
+    public Card (int cardID) { 
+        mCardID = cardID;
+        //Lookup other attributes based on cardID
+    };
+
+    //
+    // Methods
+    //
 
 
-  //
-  // Accessor methods
-  //
+    //
+    // Accessor methods
+    //
 
-  //
-  // Other methods
-  //
+    //
+    // Other methods
+    //
 
 }

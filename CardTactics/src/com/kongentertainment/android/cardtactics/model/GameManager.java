@@ -9,27 +9,49 @@ package com.kongentertainment.android.cardtactics.model;
  */
 public class GameManager {
 
-  //
-  // Fields
-  //
+    //
+    // Fields
+    //
+    private GamePlayer mPlayerHome;
+    private GamePlayer mPlayerVisitor;
+    private NetworkManager mNetworkManager;
 
-  
-  //
-  // Constructors
-  //
-  public GameManager () { };
-  
-  //
-  // Methods
-  //
+    /** holds player 1's queued TurnMove */
+    private TurnMove mMoveHome;
+    /** holds player 2's queued TurnMove */
+    private TurnMove mMoveVisitor;
 
+    //
+    // Constructors
+    //
+    public GameManager () { };
 
-  //
-  // Accessor methods
-  //
+    //
+    // Methods
+    //
+    public setMove(PlayerType playerType, TurnMove move) {
+        if (playerType == PlayerType.HOME) {
+            mMoveHome = move;
+        } else {
+            mMoveVisitor = move;
+        }
+    }
 
-  //
-  // Other methods
-  //
+    public makeMove(GamePlayer player, GameMove move) {
+        //
+        //Update game state based on move
+        //Notify server we have received the move properly
+        mNetworkManager.notifyMoveSuccess(move);
+    }
 
+    public nextTurn() {
+        //Execute gathering phase
+        //execute summoning phase
+        //execute movement/action phase
+        //execute ability phase
+        
+    }
+    public surrender(GamePlayer loser) {
+        //End the game, granting victory to the winner
+    }
 }
