@@ -71,13 +71,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	            mContext = context;
 
 	            Resources res = context.getResources();
-	            // cache handles to our key sprites & other drawables
-//	            mLanderImage = context.getResources().getDrawable(
-//	                    R.drawable.lander_plain);
-//	            mFiringImage = context.getResources().getDrawable(
-//	                    R.drawable.lander_firing);
-//	            mCrashedImage = context.getResources().getDrawable(
-//	                    R.drawable.lander_crashed);
 
 	            // load background image as a Bitmap instead of a Drawable b/c
 	            // we don't need to transform it and it's faster to draw this way
@@ -94,10 +87,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 				mResourceCounter = BitmapFactory.decodeResource(res,
                     R.drawable.resourcecounter);
 	            /*
-	            // Use the regular lander image as the model size for all sprites
-	            mLanderWidth = mLanderImage.getIntrinsicWidth();
-	            mLanderHeight = mLanderImage.getIntrinsicHeight();
-
 	            // Initialize paints for speedometer
 	            mLinePaint = new Paint();
 	            mLinePaint.setAntiAlias(true);
@@ -106,22 +95,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	            mLinePaintBad = new Paint();
 	            mLinePaintBad.setAntiAlias(true);
 	            mLinePaintBad.setARGB(255, 120, 180, 0);
-
-	            mScratchRect = new RectF(0, 0, 0, 0);
-
-	            mWinsInARow = 0;
-	            mDifficulty = DIFFICULTY_MEDIUM;
-
-	            // initial show-up of lander (not yet playing)
-	            mX = mLanderWidth;
-	            mY = mLanderHeight * 2;
-	            mFuel = PHYS_FUEL_INIT;
-	            mDX = 0;
-	            mDY = 0;
-	            mHeading = 0;
-	            mEngineFiring = true;
 	            */
-	        }
+        }
 		
 		@Override
         public void run() {
@@ -135,7 +110,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                     synchronized (mSurfaceHolder) {                 
                     	//Draw to screen
                         doDraw(c);
-
                     }
                 } finally {
                     // do this in a finally so that if an exception is thrown
@@ -174,28 +148,24 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 			canvas.drawBitmap(mLittleCard, 264, 242, null);            
 			
 			//Player's front row
-			canvas.drawBitmap(mLittleCard, 192, 164, null);            
-
-			canvas.drawBitmap(mCommandButton, 352, 140, null);            
-
+			//canvas.drawBitmap(mLittleCard, 192, 164, null);            
+			//Command Button
+            //canvas.drawBitmap(mCommandButton, 352, 140, null);
 			//Resource items
-			canvas.drawBitmap(mResourceSymbol, 379, 214, null);            
-			canvas.drawBitmap(mResourceCounter, 363, 183, null);            
-
+			canvas.drawBitmap(mResourceSymbol, 379, 214, null);
+			canvas.drawBitmap(mResourceCounter, 363, 183, null);
 			//OPPONENT
 			
 			//Resource items
-			canvas.drawBitmap(mResourceSymbol, 379, 10, null);            
+			canvas.drawBitmap(mResourceSymbol, 379, 10, null); 
 			canvas.drawBitmap(mResourceCounter, 363, 102, null);            
-
-
 			//Opponent's back row
 			canvas.drawBitmap(mLittleCard, 120, 1, null);            
 			canvas.drawBitmap(mLittleCard, 192, 1, null);            
 			canvas.drawBitmap(mLittleCard, 264, 1, null);            
 			
 			//Opponent's front row
-			canvas.drawBitmap(mLittleCard, 264, 79, null);            
+			//canvas.drawBitmap(mLittleCard, 264, 79, null);            
             
             //Draw effects
             

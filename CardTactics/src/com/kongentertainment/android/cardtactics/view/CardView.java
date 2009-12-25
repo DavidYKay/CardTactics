@@ -11,9 +11,18 @@ import com.kongentertainment.android.cardtactics.model.entities.Card;
  */
 public abstract class CardView {
 	/** We hold a card entity so we know what we're drawing */
-	protected Card card;
+	protected Card mCard;
 	/** The image occupying the top half of the card */
-	protected Drawable topImage;
+	protected Drawable mTopImage;
 	/** The image occupying the bottom half of the card */
-	protected Drawable bottomImage;
+	protected Drawable mBottomImage;
+
+    public CardView(Card card) {
+        mCard = card;
+        //Find matching TopImage, BottomImage
+    }
+
+    public Card getCard() {
+        return mCard;
+    }
 }

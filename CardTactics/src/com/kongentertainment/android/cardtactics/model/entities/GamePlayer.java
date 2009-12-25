@@ -7,27 +7,32 @@ package com.kongentertainment.android.cardtactics.model.entities;
  */
 abstract public class GamePlayer {
 
-  //
-  // Fields
-  //
+    //
+    // Fields
+    //
+    /** Cards currently in player's hand */
+    protected Hand mHand;
+    /** Deck of player's cards */
+    protected Deck mDeck;
+    /** Holds a player's resources */
+    protected int mBank;
 
-  
-  //
-  // Constructors
-  //
-  public GamePlayer () { };
-  
-  //
-  // Methods
-  //
+    //
+    // Constructors
+    //
+    public GamePlayer () { };
+
+    //
+    // Methods
+    //
 
 
-  //
-  // Accessor methods
-  //
+    //
+    // Accessor methods
+    //
 
-  //
-  // Other methods
-  //
+    //
+    // Other methods
+    //
 
 }

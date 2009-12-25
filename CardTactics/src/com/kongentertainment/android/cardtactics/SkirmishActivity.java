@@ -19,9 +19,9 @@ public class SkirmishActivity extends GameActivity {
 	private GameView mGameView;
 	private GameViewThread mGameViewThread;
 	
-  //
-  // Constructors
-	//
+    //
+    // Constructors
+    //
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -47,17 +47,16 @@ public class SkirmishActivity extends GameActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 	}
 
-  //
-  // Methods
-  //
+    //
+    // Methods
+    //
 
+    //
+    // Accessor methods
+    //
 
-  //
-  // Accessor methods
-  //
-
-  //
-  // Other methods
-  //
+    //
+    // Other methods
+    //
 
 }
