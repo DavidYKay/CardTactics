@@ -1,7 +1,14 @@
 package com.kongentertainment.android.cardtactics.view;
 
+import com.kongentertainment.android.cardtactics.R;
+import com.kongentertainment.android.cardtactics.model.entities.Card;
 import com.kongentertainment.android.cardtactics.model.entities.CreatureCard;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -15,11 +22,18 @@ public class CreatureCardView extends CardView {
 	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
     GestureDetector mGestureDetector;
 
-    public CreatureCardView(CreatureCard card) {
-        super(card);
+	private Bitmap mBigCard;
+
+    public CreatureCardView(Context context, CreatureCard card) {
+        super(context, card);
 
         mGestureDetector = new GestureDetector(new MyGestureDetector());
 
+		Resources res = context.getResources();
+
+		mBigCard = BitmapFactory.decodeResource(res,
+				R.drawable.bigcard);
+		
         /*
         setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View arg0, MotionEvent arg1) {
@@ -69,6 +83,17 @@ public class CreatureCardView extends CardView {
             return false;
         }
     }
+
+	/**
+	 * Overridden method to draw the creaturecard
+	 */
+	@Override
+	protected
+	void onDraw(Canvas canvas) {
+		
+		canvas.drawBitmap(mBigCard, 286, 192, null);            
+
+	}
     
     /*
     @Override

@@ -12,8 +12,10 @@ import android.os.Message;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.RelativeLayout;
 
 import com.kongentertainment.android.cardtactics.R;
+import com.kongentertainment.android.cardtactics.model.entities.CreatureCard;
 
 /**
  * Class GameView
@@ -57,6 +59,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		 /** Scratch rect object. */
 		private RectF mScratchRect;
 		
+		/** Relative layout holding buttons, etc */
+		private RelativeLayout mRelativeLayout;
+		
 		private Bitmap mTestCard;
 		private Bitmap mLittleCard;
 		private Bitmap mCommandButton;
@@ -71,6 +76,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	            mContext = context;
 
 	            Resources res = context.getResources();
+
+				mRelativeLayout = (RelativeLayout) findViewById(R.id.gameRelativeLayout);
+
+				CreatureCard newCard = new CreatureCard(1);
+				CreatureCardView creatureCardView = new CreatureCardView(context, newCard);
+				//mRelativeLayout.addView(creatureCardView);
 
 	            // load background image as a Bitmap instead of a Drawable b/c
 	            // we don't need to transform it and it's faster to draw this way

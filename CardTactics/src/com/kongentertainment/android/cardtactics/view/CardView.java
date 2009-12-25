@@ -1,6 +1,8 @@
 package com.kongentertainment.android.cardtactics.view;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.view.View;
 
 import com.kongentertainment.android.cardtactics.model.entities.Card;
 
@@ -9,7 +11,12 @@ import com.kongentertainment.android.cardtactics.model.entities.Card;
  * @author dk
  *
  */
-public abstract class CardView {
+public abstract class CardView extends View {
+//	public CardView(Context context) {
+//		super(context);
+//		// TODO Auto-generated constructor stub
+//	}
+
 	/** We hold a card entity so we know what we're drawing */
 	protected Card mCard;
 	/** The image occupying the top half of the card */
@@ -17,10 +24,12 @@ public abstract class CardView {
 	/** The image occupying the bottom half of the card */
 	protected Drawable mBottomImage;
 
-    public CardView(Card card) {
+    public CardView(Context context, Card card) {
+    	super(context);
         mCard = card;
         //Find matching TopImage, BottomImage
     }
+    
 
     public Card getCard() {
         return mCard;

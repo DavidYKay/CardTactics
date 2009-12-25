@@ -30,7 +30,7 @@ public abstract class Card {
     //
     // Accessor methods
     //
-    public CardID getID() {
+    public int getID() {
         return mCardID;
     }
     public CardType getType() {
