@@ -26,12 +26,8 @@ abstract public class GamePlayer {
     // Methods
     //
 
-    public void addCardToHand(Card card) {
-        
-    }
-
-    public int getBank() {
-        return mBank;
+    public void drawCard() {
+        mHand.addCard(mDeck.removeCard());
     }
 
     public void addToBank(int resources) {
@@ -41,6 +37,17 @@ abstract public class GamePlayer {
     //
     // Accessor methods
     //
+    public int getBank() {
+        return mBank;
+    }
+
+    public Hand getHand() {
+        return mHand;
+    }
+    
+    public Deck getDeck() {
+        return mDeck;
+    }
 
     //
     // Other methods

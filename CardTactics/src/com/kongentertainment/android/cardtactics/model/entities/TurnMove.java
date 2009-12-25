@@ -3,6 +3,7 @@ package com.kongentertainment.android.cardtactics.model.entities;
 /**
  * Holds all of a player's commands for a given turn.
  * Passed back and forth via the network to the gameManager.
+ * These should be saved by the GameManager for two reasons. 1: Solving Desync problems, and 2: Replays!
  */
 public class TurnMove {
 

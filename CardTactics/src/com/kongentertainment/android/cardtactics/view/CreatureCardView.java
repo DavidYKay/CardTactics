@@ -1,9 +1,5 @@
 package com.kongentertainment.android.cardtactics.view;
 
-import com.kongentertainment.android.cardtactics.R;
-import com.kongentertainment.android.cardtactics.model.entities.Card;
-import com.kongentertainment.android.cardtactics.model.entities.CreatureCard;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -12,8 +8,10 @@ import android.graphics.Canvas;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.GestureDetector.SimpleOnGestureListener;
+
+import com.kongentertainment.android.cardtactics.R;
+import com.kongentertainment.android.cardtactics.model.entities.CreatureCard;
 
 public class CreatureCardView extends CardView {
 

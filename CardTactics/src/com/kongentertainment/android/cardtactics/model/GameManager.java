@@ -14,8 +14,6 @@ public class GameManager {
     //
     // Fields
     //
-    private GamePlayer mPlayerHome;
-    private GamePlayer mPlayerVisitor;
     private NetworkManager mNetworkManager;
 	private GameState mGameState;
 
