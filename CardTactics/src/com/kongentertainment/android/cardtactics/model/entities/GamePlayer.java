@@ -10,8 +10,12 @@ abstract public class GamePlayer {
     //
     // Fields
     //
-    private Hand mHand;
-    private Deck mDeck;
+    /** Cards currently in player's hand */
+    protected Hand mHand;
+    /** Deck of player's cards */
+    protected Deck mDeck;
+    /** Holds a player's resources */
+    protected int mBank;
 
     //
     // Constructors

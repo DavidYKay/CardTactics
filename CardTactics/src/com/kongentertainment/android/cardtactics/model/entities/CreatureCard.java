@@ -1,11 +1,11 @@
 package com.kongentertainment.android.cardtactics.model.entities;
 
-
+import com.kongentertainment.android.cardtactics.model.ModelConstants;
 
 /**
  * Class CreatureCard
  */
-public class CreatureCard extends Card {
+public class CreatureCard extends Card implements ModelConstants {
 
     //
     //

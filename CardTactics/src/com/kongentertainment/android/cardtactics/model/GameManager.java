@@ -1,6 +1,9 @@
 package com.kongentertainment.android.cardtactics.model;
 
-
+import com.kongentertainment.android.cardtactics.model.entities.GamePlayer;
+import com.kongentertainment.android.cardtactics.model.entities.PlayerType;
+import com.kongentertainment.android.cardtactics.model.entities.TurnMove;
+import com.kongentertainment.android.cardtactics.network.NetworkManager;
 
 /**
  * Class GameManager
@@ -8,13 +11,13 @@ package com.kongentertainment.android.cardtactics.model;
  * Manages the current gamestate. This is effectively the beating heart of the entire game client.
  */
 public class GameManager {
-
     //
     // Fields
     //
     private GamePlayer mPlayerHome;
     private GamePlayer mPlayerVisitor;
     private NetworkManager mNetworkManager;
+	private GameState mGameState;
 
     /** holds player 1's queued TurnMove */
     private TurnMove mMoveHome;
@@ -29,7 +32,10 @@ public class GameManager {
     //
     // Methods
     //
-    public setMove(PlayerType playerType, TurnMove move) {
+	/**
+	 * Store a player's intended move for execution during nextTurn
+	 */
+    public void setMove(PlayerType playerType, TurnMove move) {
         if (playerType == PlayerType.HOME) {
             mMoveHome = move;
         } else {
@@ -37,21 +43,52 @@ public class GameManager {
         }
     }
 
-    public makeMove(GamePlayer player, GameMove move) {
-        //
-        //Update game state based on move
-        //Notify server we have received the move properly
-        mNetworkManager.notifyMoveSuccess(move);
+	/**
+	 * Key method in advancing from current turn to next turn.
+	 * Executes all game phases, notifies the network manager we have completed execution
+	 */
+    public void nextTurn() {
+        gatheringPhase();
+        summoningPhase();
+        movementPhase();
+        abilityPhase();
+        cleanupPhase();
+		//Clear out the moves to prep for next turn
+        mMoveHome    = null;
+        mMoveVisitor = null;
+		mGameState.incrementTurn();
+        mNetworkManager.notifyMoveSuccess(mGameState.getTurnCount());
     }
 
-    public nextTurn() {
-        //Execute gathering phase
-        //execute summoning phase
-        //execute movement/action phase
-        //execute ability phase
-        
+    /** 
+     * End the game, granting victory to the winner
+     */
+    public void surrender(GamePlayer loser) {
     }
-    public surrender(GamePlayer loser) {
-        //End the game, granting victory to the winner
+
+    /**
+     * Gather resources, add them to player's bank
+     */
+    private void gatheringPhase() {
+    }
+    /**
+     * Summon new creatures.
+     */
+    private void summoningPhase() {
+    }
+    /**
+     * Creature combat, movement occurs here.
+     */
+    private void movementPhase() {
+    }
+    /**
+     * Creature abilities, resource abilities, avatar abilities happen here.
+     */
+    private void abilityPhase() {
+    }
+    /** 
+     * Reset any spells or summoning sickness that needs to be resolved before next term
+     */
+    private void cleanupPhase() {
     }
 }

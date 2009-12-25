@@ -7,6 +7,11 @@ package com.kongentertainment.android.cardtactics.model.entities;
  */
 public class SpellCard extends Card {
 
+	public SpellCard(int cardID) {
+		super(cardID);
+		// TODO Auto-generated constructor stub
+	}
+
   //
   // Fields
   //
@@ -15,7 +20,7 @@ public class SpellCard extends Card {
   //
   // Constructors
   //
-  public SpellCard () { };
+
   
   //
   // Methods

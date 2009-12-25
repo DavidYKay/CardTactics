@@ -5,7 +5,13 @@ public class GameState {
     /** What turn is it? */
     private int mTurnCount;
 
+
     public void incrementTurn() {
         mTurnCount++;
+    }
+
+
+    public int getTurnCount() {
+        return mTurnCount;
     }
 }

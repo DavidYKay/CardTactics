@@ -5,7 +5,7 @@ package com.kongentertainment.android.cardtactics.model.entities;
 /**
  * Class Card
  */
-public class Card {
+public abstract class Card {
 
     //
     // Fields
