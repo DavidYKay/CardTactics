@@ -4,6 +4,7 @@ import com.kongentertainment.android.cardtactics.model.ModelConstants;
 
 /**
  * Class CreatureCard
+ * Holds all key state and attribute variables for a creature.
  */
 public class CreatureCard extends Card implements ModelConstants {
 

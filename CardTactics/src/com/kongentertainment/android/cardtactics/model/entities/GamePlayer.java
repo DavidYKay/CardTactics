@@ -26,6 +26,17 @@ abstract public class GamePlayer {
     // Methods
     //
 
+    public void addCardToHand(Card card) {
+        
+    }
+
+    public int getBank() {
+        return mBank;
+    }
+
+    public void addToBank(int resources) {
+        mBank += resources;
+    }
 
     //
     // Accessor methods
