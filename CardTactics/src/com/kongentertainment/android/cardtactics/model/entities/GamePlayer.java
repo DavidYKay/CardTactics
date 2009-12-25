@@ -1,7 +1,5 @@
 package com.kongentertainment.android.cardtactics.model.entities;
 
-
-
 /**
  * Class GamePlayer
  */
@@ -52,5 +50,4 @@ abstract public class GamePlayer {
     //
     // Other methods
     //
-
 }

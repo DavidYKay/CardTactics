@@ -14,9 +14,10 @@ public class GameManager {
     //
     // Fields
     //
+    /** The connection to the outside world */
     private NetworkManager mNetworkManager;
+    /** THE game state for the current game */
 	private GameState mGameState;
-
     /** holds player 1's queued TurnMove */
     private TurnMove mMoveHome;
     /** holds player 2's queued TurnMove */
@@ -85,7 +86,7 @@ public class GameManager {
     private void abilityPhase() {
     }
     /** 
-     * Reset any spells or summoning sickness that needs to be resolved before next term
+     * Reset any spells or summoning sickness that need to be resolved before next term
      */
     private void cleanupPhase() {
     }

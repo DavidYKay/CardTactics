@@ -2,12 +2,11 @@ package com.kongentertainment.android.cardtactics.model.entities;
 
 import java.util.ArrayList;
 
-
-
 /**
  * Class Hand
  * Represents a player's hand of cards
  * TODO: Limit # of cards in hand.
+ * TODO: Move this to an array implementation?
  */
 public class Hand {
 
