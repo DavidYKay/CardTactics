@@ -1,0 +1,25 @@
+NAT
+    Is this a legitimate concern?
+    What do we need to figure out?
+Desync
+    How to deal with it?
+    Key: prevention!
+    worst case scenario: send a copy of gamestate?
+        -Very expensive. Probably not worth it?
+        Alternatively, send a list of commands?
+
+Threading
+    One thread per game?
+    One process per game?
+
+Peer-to-peer
+    Pro:
+        No need for server
+            Lower overhead
+        Lower latency?
+    Con:
+        NAT
+            -Isn't this a problem regardless?
+        Cheating
+        Harder to pursue card trading model
+
