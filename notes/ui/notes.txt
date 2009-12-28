@@ -1,0 +1,11 @@
+user tasks are indeterminate
+
+What is the entertainment goal?
+what is actually difficult about the game?
+
+Task analysis
+System Functions to support task
+Usability specifications
+Initial Interface
+Evaluate usability
+Correct and repeat eval
