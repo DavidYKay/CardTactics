@@ -31,6 +31,13 @@ public class CreatureCard extends Card implements ModelConstants {
     //
     // Constructors
     //
+    /** DEBUG ONLY */
+    public CreatureCard(String debug) {
+    	super (1);	 //mCardID == 1
+        mMaxHP = 10;
+        mHP    = mMaxHP;        
+    }
+
     public CreatureCard(int cardID) {
         super (cardID);
         //Lookup other attributes based on cardID

@@ -11,26 +11,26 @@ public class CardViewManager {
 
     //PERF: Convert these to an arraylist implementation if performance is an issue
     //If a card is in either deck, its full image should be in here:
-    private HashMap<String, Bitmap> mBigCards;
+    private HashMap<Integer, Bitmap> mBigCards;
     //If a card is in either deck, its small image should be in here:
-    private HashMap<String, Bitmap> mSmallCards;
+    private HashMap<Integer, Bitmap> mSmallCards;
 
     public CardViewManager () {
-        mBigCards   = new HashMap<String, Bitmap>();
-        mSmallCards = new HashMap<String, Bitmap>();
+        mBigCards   = new HashMap<Integer, Bitmap>();
+        mSmallCards = new HashMap<Integer, Bitmap>();
     }
 
-    public Bitmap getBigCard(String cardName) {
-        return mBigCards.get(cardName);
+    public Bitmap getBigCard(Integer cardID) {
+        return mBigCards.get(cardID);
     }
-    public Bitmap getSmallCard(String cardName) {
-        return mSmallCards.get(cardName);
+    public Bitmap getSmallCard(Integer cardID) {
+        return mSmallCards.get(cardID);
     }
 
-    public void putBigCard(String cardName, Bitmap bitmap) {
-        mBigCards.put(cardName, bitmap);
+    public void putBigCard(Integer cardID, Bitmap bitmap) {
+        mBigCards.put(cardID, bitmap);
     }
-    public void putSmallCard(String cardName, Bitmap bitmap) {
-        mSmallCards.put(cardName, bitmap);
+    public void putSmallCard(Integer cardID, Bitmap bitmap) {
+        mSmallCards.put(cardID, bitmap);
     }
 }

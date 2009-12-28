@@ -9,9 +9,6 @@ import com.kongentertainment.android.cardtactics.view.GameView;
 import com.kongentertainment.android.cardtactics.view.GameView.GameViewThread;
 
 public class SkirmishActivity extends GameActivity {
-	public class GameThread extends Thread {
-
-	}
 
   //
   // Fields

@@ -61,6 +61,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		
 		/** Relative layout holding buttons, etc */
 		//private RelativeLayout mRelativeLayout;
+
+        /** Our copy of the view on the player's creature yard */
+        private CreatureYardView mCreatureYardView;
 		
 		private Bitmap mTestCard;
 		private Bitmap mLittleCard;
@@ -76,6 +79,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	            mContext = context;
 
 	            Resources res = context.getResources();
+
+                //DEBUG CODE, must replace
+                mCreatureYardView = new CreatureYardView("Debug");
 
 				//mRelativeLayout = (RelativeLayout) findViewById(R.id.gameRelativeLayout);
 
@@ -153,10 +159,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             //Card Preview
             canvas.drawBitmap(mTestCard, 7, 75, null);            
             
+            //Player's creature yard
+            mCreatureYardView.draw(canvas);
+
 			//Player's back row
-			canvas.drawBitmap(mLittleCard, 120, 242, null);            
-			canvas.drawBitmap(mLittleCard, 192, 242, null);            
-			canvas.drawBitmap(mLittleCard, 264, 242, null);            
+			//canvas.drawBitmap(mLittleCard, 120, 242, null);            
+			//canvas.drawBitmap(mLittleCard, 192, 242, null);            
+			//canvas.drawBitmap(mLittleCard, 264, 242, null);            
+
 			
 			//Player's front row
 			//canvas.drawBitmap(mLittleCard, 192, 164, null);            
