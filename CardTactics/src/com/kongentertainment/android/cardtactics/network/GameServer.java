@@ -29,7 +29,7 @@ public class GameServer {
     /**
      * Takes two clients and starts a game
      */
-    private void startGame()
+    private void startGame() {
         //notify both clients of each other's IPs?
         //notify both clients that the game is about to begin -- time to start picking decks?
     }

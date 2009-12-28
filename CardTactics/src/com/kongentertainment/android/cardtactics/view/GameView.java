@@ -60,7 +60,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		private RectF mScratchRect;
 		
 		/** Relative layout holding buttons, etc */
-		private RelativeLayout mRelativeLayout;
+		//private RelativeLayout mRelativeLayout;
 		
 		private Bitmap mTestCard;
 		private Bitmap mLittleCard;
@@ -77,7 +77,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
 	            Resources res = context.getResources();
 
-				mRelativeLayout = (RelativeLayout) findViewById(R.id.gameRelativeLayout);
+				//mRelativeLayout = (RelativeLayout) findViewById(R.id.gameRelativeLayout);
 
 				CreatureCard newCard = new CreatureCard(1);
 				CreatureCardView creatureCardView = new CreatureCardView(context, newCard);
