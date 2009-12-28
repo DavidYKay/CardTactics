@@ -19,6 +19,18 @@ public class CreatureYard {
     public CreatureCard getCreature(int x, int y) {
         return mGrid[x][y];
     }
+    /**
+     * PERF: Consider caching this
+     */
+    public int getWidth() {
+        return mGrid.length;
+    }
+    /**
+     * PERF: Consider caching this
+     */
+    public int getHeight() {
+        return mGrid[0].length;
+    }
 
     /**
      * Put a creature into play, presumably from a player's hand
@@ -49,16 +61,10 @@ public class CreatureYard {
         return creature;
     }
 
-    //private boolean isEmpty(int x, int y) {
-    //    if (mGrid[x][y]) {
-    //        return false;
-    //    } 
-    //    return true;
-    //}
-    //private boolean isOccupied(int x, int y) {
-    //    if (mGrid[x][y]) {
-    //        return true;
-    //    } 
-    //    return false;
-    //}
+    public boolean isEmpty(int x, int y) {
+        if (mGrid[x][y] == null) {
+            return true;
+        } 
+        return false;
+    }
 }

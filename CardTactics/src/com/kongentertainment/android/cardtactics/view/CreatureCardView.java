@@ -20,7 +20,7 @@ public class CreatureCardView extends CardView {
 	private static final int SWIPE_THRESHOLD_VELOCITY = 200;
     GestureDetector mGestureDetector;
 
-	private Bitmap mBigCard;
+	private Bitmap mBitMap;
 
     public CreatureCardView(Context context, CreatureCard card) {
         super(context, card);
@@ -29,7 +29,7 @@ public class CreatureCardView extends CardView {
 
 		Resources res = context.getResources();
 
-		mBigCard = BitmapFactory.decodeResource(res,
+		mBitMap = BitmapFactory.decodeResource(res,
 				R.drawable.bigcard);
 		
         /*
@@ -86,12 +86,15 @@ public class CreatureCardView extends CardView {
 	 * Overridden method to draw the creaturecard
 	 */
 	@Override
-	protected
-	void onDraw(Canvas canvas) {
+	protected void onDraw(Canvas canvas) {
 		
-		canvas.drawBitmap(mBigCard, 286, 192, null);            
-
+		canvas.drawBitmap(mBitMap, 286, 192, null);            
 	}
+
+	protected void drawAt(Canvas canvas, int x, int y) {
+		canvas.drawBitmap(mBitMap, x, y, null);            
+	}
+    
     
     /*
     @Override
@@ -102,5 +105,8 @@ public class CreatureCardView extends CardView {
 	    	return false;
     }
     */
-    
+
+    public Bitmap getBitmap() {
+        return mBitMap;
+    }
 }

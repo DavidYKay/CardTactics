@@ -19,6 +19,7 @@ public abstract class CardView extends View {
 
 	/** We hold a card entity so we know what we're drawing */
 	protected Card mCard;
+
 	/** The image occupying the top half of the card */
 	protected Drawable mTopImage;
 	/** The image occupying the bottom half of the card */
