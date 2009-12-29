@@ -64,6 +64,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         /** Our copy of the view on the player's creature yard */
         private CreatureYardView mCreatureYardView;
+        /** Holds all the bitmaps for all the cards */
+        private CardViewManager mCardViewManager;
 		
 		private Bitmap mTestCard;
 		private Bitmap mLittleCard;
@@ -71,7 +73,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		private Bitmap mResourceCounter;
 		private Bitmap mResourceSymbol;
 		
-		 public GameViewThread(SurfaceHolder surfaceHolder, Context context,
+        public GameViewThread(SurfaceHolder surfaceHolder, Context context,
 	                Handler handler) {
 	            // get handles to some important objects
 	            mSurfaceHolder = surfaceHolder;
@@ -81,12 +83,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	            Resources res = context.getResources();
 
                 //DEBUG CODE, must replace
+                mCardViewManager  = new CardViewManager(res);
                 mCreatureYardView = new CreatureYardView("Debug");
 
 				//mRelativeLayout = (RelativeLayout) findViewById(R.id.gameRelativeLayout);
 
-				CreatureCard newCard = new CreatureCard(1);
-				CreatureCardView creatureCardView = new CreatureCardView(context, newCard);
+				//CreatureCard newCard = new CreatureCard(1);
+				//CreatureCardView creatureCardView = new CreatureCardView(context, newCard);
 				//mRelativeLayout.addView(creatureCardView);
 
 	            // load background image as a Bitmap instead of a Drawable b/c
@@ -149,6 +152,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             // so this is like clearing the screen.
             canvas.drawBitmap(mBackgroundImage, 0, 0, null);
 
+            //draw anything we haven't implemented programatically yet
+            testDraw(canvas);
+            
+            //Player's creature yard
+            mCreatureYardView.draw(canvas);
+
+            //Draw effects
+        }
+
+        private void testDraw(Canvas canvas) {
 			//Center line
 			Paint blackPaint = new Paint();
 			blackPaint.setColor(0xff000000);
@@ -158,15 +171,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
             //Card Preview
             canvas.drawBitmap(mTestCard, 7, 75, null);            
-            
-            //Player's creature yard
-            mCreatureYardView.draw(canvas);
 
 			//Player's back row
 			//canvas.drawBitmap(mLittleCard, 120, 242, null);            
 			//canvas.drawBitmap(mLittleCard, 192, 242, null);            
 			//canvas.drawBitmap(mLittleCard, 264, 242, null);            
-
 			
 			//Player's front row
 			//canvas.drawBitmap(mLittleCard, 192, 164, null);            
@@ -187,63 +196,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 			
 			//Opponent's front row
 			//canvas.drawBitmap(mLittleCard, 264, 79, null);            
-            
-            //Draw effects
-            
-            /*
-            int yTop = mCanvasHeight - ((int) mY + mLanderHeight / 2);
-            int xLeft = (int) mX - mLanderWidth / 2;
-
-            // Draw the fuel gauge
-            int fuelWidth = (int) (UI_BAR * mFuel / PHYS_FUEL_MAX);
-            mScratchRect.set(4, 4, 4 + fuelWidth, 4 + UI_BAR_HEIGHT);
-            canvas.drawRect(mScratchRect, mLinePaint);
-
-            // Draw the speed gauge, with a two-tone effect
-            double speed = Math.sqrt(mDX * mDX + mDY * mDY);
-            int speedWidth = (int) (UI_BAR * speed / PHYS_SPEED_MAX);
-
-            if (speed <= mGoalSpeed) {
-                mScratchRect.set(4 + UI_BAR + 4, 4,
-                        4 + UI_BAR + 4 + speedWidth, 4 + UI_BAR_HEIGHT);
-                canvas.drawRect(mScratchRect, mLinePaint);
-            } else {
-                // Draw the bad color in back, with the good color in front of
-                // it
-                mScratchRect.set(4 + UI_BAR + 4, 4,
-                        4 + UI_BAR + 4 + speedWidth, 4 + UI_BAR_HEIGHT);
-                canvas.drawRect(mScratchRect, mLinePaintBad);
-                int goalWidth = (UI_BAR * mGoalSpeed / PHYS_SPEED_MAX);
-                mScratchRect.set(4 + UI_BAR + 4, 4, 4 + UI_BAR + 4 + goalWidth,
-                        4 + UI_BAR_HEIGHT);
-                canvas.drawRect(mScratchRect, mLinePaint);
-            }
-
-            // Draw the landing pad
-            canvas.drawLine(mGoalX, 1 + mCanvasHeight - TARGET_PAD_HEIGHT,
-                    mGoalX + mGoalWidth, 1 + mCanvasHeight - TARGET_PAD_HEIGHT,
-                    mLinePaint);
-
-
-            // Draw the ship with its current rotation
-            canvas.save();
-            canvas.rotate((float) mHeading, (float) mX, mCanvasHeight
-                    - (float) mY);
-            if (mMode == STATE_LOSE) {
-                mCrashedImage.setBounds(xLeft, yTop, xLeft + mLanderWidth, yTop
-                        + mLanderHeight);
-                mCrashedImage.draw(canvas);
-            } else if (mEngineFiring) {
-                mFiringImage.setBounds(xLeft, yTop, xLeft + mLanderWidth, yTop
-                        + mLanderHeight);
-                mFiringImage.draw(canvas);
-            } else {
-                mLanderImage.setBounds(xLeft, yTop, xLeft + mLanderWidth, yTop
-                        + mLanderHeight);
-                mLanderImage.draw(canvas);
-            }
-            canvas.restore();
-            */
         }
         
         /* Callback invoked when the surface dimensions change. */
@@ -342,6 +294,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         public void setRunning(boolean b) {
             mRun = b;
         }
+        
+        public CardViewManager getCardViewManager() {
+            return mCardViewManager;
+        }
     }
 	
 	 /** The thread that actually draws the animation */
@@ -401,7 +357,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
     }
-    
+    //******************************
+    //ACCESSORS
+    //******************************
     /**
      * Fetches the animation thread corresponding to this LunarView.
      * 
@@ -410,4 +368,5 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public GameViewThread getThread() {
         return thread;
     }
+
 }

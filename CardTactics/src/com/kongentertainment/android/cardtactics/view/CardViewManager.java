@@ -2,7 +2,11 @@ package com.kongentertainment.android.cardtactics.view;
 
 import java.util.HashMap;
 
+import com.kongentertainment.android.cardtactics.R;
+
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 /**
  * Keeps a collection of relevant Card bitmaps to draw on the screen
@@ -18,6 +22,13 @@ public class CardViewManager {
     public CardViewManager () {
         mBigCards   = new HashMap<Integer, Bitmap>();
         mSmallCards = new HashMap<Integer, Bitmap>();
+    }
+    /** DEBUG ONLY */
+    public CardViewManager (Resources res) {
+        this();
+        Bitmap bigCard = BitmapFactory.decodeResource(res,
+                    R.drawable.bigcard);
+        putBigCard(1, bigCard);
     }
 
     public Bitmap getBigCard(Integer cardID) {
