@@ -19,6 +19,10 @@ public abstract class CardView extends View {
 
 	/** We hold a card entity so we know what we're drawing */
 	protected Card mCard;
+    /** X Position on canvas */
+    protected int mPosX;
+    /** Y Position on canvas */
+    protected int mPosY;
 
 	/** The image occupying the top half of the card */
 	protected Drawable mTopImage;
@@ -31,8 +35,13 @@ public abstract class CardView extends View {
         //Find matching TopImage, BottomImage
     }
     
-
     public Card getCard() {
         return mCard;
+    }
+    public int getPosX() {
+        return mPosX;
+    }
+    public int getPosY() {
+        return mPosY;
     }
 }

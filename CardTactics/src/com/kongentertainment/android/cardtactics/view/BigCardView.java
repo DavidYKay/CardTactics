@@ -11,8 +11,6 @@ import com.kongentertainment.android.cardtactics.view.GameView.GameViewThread;
 
 public class BigCardView extends CardView {
 
-    private int mPosX;
-    private int mPosY;
     private GameViewThread mGameViewThread;
 
 	public BigCardView(Context context, Card card) {
@@ -38,7 +36,6 @@ public class BigCardView extends CardView {
 
     public boolean onTouchEvent(MotionEvent motionEvent) {
     	Log.d("BigCardView", "Touch event felt by BigCardView!");
-		return false;    	
+		return true;    	
     }
-    
 }

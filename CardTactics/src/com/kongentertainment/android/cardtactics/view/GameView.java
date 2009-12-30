@@ -310,6 +310,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         public Context getContext() {
         	return mContext;
         }
+        public BigCardView getBigCardView() {
+            return mBigCardView;
+        }
     }
 	
 	 /** The thread that actually draws the animation */
@@ -372,6 +375,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     
     public boolean onTouchEvent(MotionEvent motionEvent) {
     	Log.d("GameView", "Touch event felt by GameView!");
+        //Check if we're inside the bigCard's area
+        final float x = motionEvent.getX();
+        final float y = motionEvent.getY();
+        BigCardView bigCardView = getThread().getBigCardView(); 
+        if (x > bigCardView.getPosX() &&
+            y > bigCardView.getPosY()
+        ) {
+            //if we are, pass it on
+            return bigCardView.onTouchEvent(motionEvent);
+        }
 		return false;    	
     }
     
@@ -386,7 +399,5 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public GameViewThread getThread() {
         return thread;
     }
-
-
 
 }
