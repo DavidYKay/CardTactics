@@ -9,8 +9,8 @@ import com.kongentertainment.android.cardtactics.model.exceptions.InvalidMoveExc
 
 public class CreatureYardView {
     //PERF: Chop these down to shorts/chars if need be
-    private static int YARD_X_POS = 150;
-    private static int YARD_Y_POS = 160;
+    private int mPosX;
+    private int mPosY;
     private static int CELL_WIDTH  = 66;
     private static int CELL_HEIGHT = 75;
 
@@ -21,7 +21,10 @@ public class CreatureYardView {
     /** DEBUG ONLY */
     public CreatureYardView(String debug, CardViewManager cardViewManager) {
     	mCardViewManager = cardViewManager;
-    	
+        //TODO: Init these from parameter, based on right/left
+    	mPosX = 150;
+        mPosY = 160;
+
         int yard_x = 3;
         int yard_y = 2;
         mCreatureYard = new CreatureYard(yard_x, yard_y);
@@ -57,8 +60,8 @@ public class CreatureYardView {
                     int cardID = mCreatureYard.getCreature(i, j).getID();                    
                     Bitmap bitmap = mCardViewManager.getSmallCard(cardID);
                     //draw a card there
-                    int xCoord = YARD_X_POS + (CELL_WIDTH  * i);
-                    int yCoord = YARD_Y_POS + (CELL_HEIGHT * j);
+                    int xCoord = mPosX + (CELL_WIDTH  * i);
+                    int yCoord = mPosY + (CELL_HEIGHT * j);
                     canvas.drawBitmap(bitmap, xCoord, yCoord, null);            
                 } //else keep going
             }

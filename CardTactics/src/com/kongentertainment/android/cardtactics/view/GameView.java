@@ -10,11 +10,14 @@ import android.graphics.RectF;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.RelativeLayout;
 
 import com.kongentertainment.android.cardtactics.R;
+import com.kongentertainment.android.cardtactics.model.entities.Card;
 import com.kongentertainment.android.cardtactics.model.entities.CreatureCard;
 
 /**
@@ -66,6 +69,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         private CreatureYardView mCreatureYardView;
         /** Holds all the bitmaps for all the cards */
         private CardViewManager mCardViewManager;
+        /** The large card preview */
+        private BigCardView mBigCardView;
 		
 		private Bitmap mTestCard;
 		private Bitmap mLittleCard;
@@ -85,6 +90,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 //DEBUG CODE, must replace
                 mCardViewManager  = new CardViewManager(res);
                 mCreatureYardView = new CreatureYardView("Debug", mCardViewManager);
+                Card bigCard = new CreatureCard("Debug");
+                mBigCardView = new BigCardView (bigCard, this);
 
 				//mRelativeLayout = (RelativeLayout) findViewById(R.id.gameRelativeLayout);
 
@@ -158,6 +165,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             //Player's creature yard
             mCreatureYardView.draw(canvas);
 
+            mBigCardView.draw(canvas);
+
             //Draw effects
         }
 
@@ -170,7 +179,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 			canvas.drawLine(0, 160, 480, 160, blackPaint);
 
             //Card Preview
-            canvas.drawBitmap(mTestCard, 7, 75, null);            
+            //canvas.drawBitmap(mTestCard, 7, 75, null);            
 
 			//Player's back row
 			//canvas.drawBitmap(mLittleCard, 120, 242, null);            
@@ -298,6 +307,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         public CardViewManager getCardViewManager() {
             return mCardViewManager;
         }
+        public Context getContext() {
+        	return mContext;
+        }
     }
 	
 	 /** The thread that actually draws the animation */
@@ -357,6 +369,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             }
         }
     }
+    
+    public boolean onTouchEvent(MotionEvent motionEvent) {
+    	Log.d("GameView", "Touch event felt by GameView!");
+		return false;    	
+    }
+    
     //******************************
     //ACCESSORS
     //******************************
@@ -368,5 +386,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public GameViewThread getThread() {
         return thread;
     }
+
+
 
 }
