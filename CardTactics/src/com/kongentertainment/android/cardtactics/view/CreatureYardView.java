@@ -10,11 +10,9 @@ import com.kongentertainment.android.cardtactics.model.exceptions.InvalidMoveExc
 public class CreatureYardView {
     //PERF: Chop these down to shorts/chars if need be
     private static int YARD_X_POS = 150;
-    private static int YARD_Y_POS = 195;
-    //private static int YARD_X_SIZE = 200;
-    //private static int YARD_Y_SIZE = 160;
+    private static int YARD_Y_POS = 160;
     private static int CELL_WIDTH  = 66;
-    private static int CELL_HEIGHT = 53;
+    private static int CELL_HEIGHT = 75;
 
     /** The Creature Yard to pull data from */
     private CreatureYard mCreatureYard;
