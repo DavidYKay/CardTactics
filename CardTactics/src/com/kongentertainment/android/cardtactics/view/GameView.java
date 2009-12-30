@@ -84,7 +84,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
                 //DEBUG CODE, must replace
                 mCardViewManager  = new CardViewManager(res);
-                mCreatureYardView = new CreatureYardView("Debug");
+                mCreatureYardView = new CreatureYardView("Debug", mCardViewManager);
 
 				//mRelativeLayout = (RelativeLayout) findViewById(R.id.gameRelativeLayout);
 

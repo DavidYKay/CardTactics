@@ -29,6 +29,9 @@ public class CardViewManager {
         Bitmap bigCard = BitmapFactory.decodeResource(res,
                     R.drawable.bigcard);
         putBigCard(1, bigCard);
+        Bitmap smallCard = BitmapFactory.decodeResource(res,
+                R.drawable.card);
+        putSmallCard(1, smallCard);
     }
 
     public Bitmap getBigCard(Integer cardID) {

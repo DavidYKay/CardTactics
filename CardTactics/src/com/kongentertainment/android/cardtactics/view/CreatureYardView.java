@@ -21,7 +21,9 @@ public class CreatureYardView {
 	private CardViewManager mCardViewManager;
 
     /** DEBUG ONLY */
-    public CreatureYardView(String debug) {
+    public CreatureYardView(String debug, CardViewManager cardViewManager) {
+    	mCardViewManager = cardViewManager;
+    	
         int yard_x = 3;
         int yard_y = 2;
         mCreatureYard = new CreatureYard(yard_x, yard_y);
@@ -49,15 +51,16 @@ public class CreatureYardView {
         int x = mCreatureYard.getWidth();
         int y = mCreatureYard.getHeight();
         //For each position
+        
         for (int i=0; i < x; i++) {
             for (int j=0; j < y; j++) {
                 //if occupied
                 if (!mCreatureYard.isEmpty(i, j)) {
                     int cardID = mCreatureYard.getCreature(i, j).getID();                    
-                    Bitmap bitmap = mCardViewManager.getBigCard(cardID);
+                    Bitmap bitmap = mCardViewManager.getSmallCard(cardID);
                     //draw a card there
-                    int xCoord = YARD_X_POS + CELL_WIDTH  * x;
-                    int yCoord = YARD_Y_POS + CELL_HEIGHT * y;
+                    int xCoord = YARD_X_POS + (CELL_WIDTH  * i);
+                    int yCoord = YARD_Y_POS + (CELL_HEIGHT * j);
                     canvas.drawBitmap(bitmap, xCoord, yCoord, null);            
                 } //else keep going
             }
