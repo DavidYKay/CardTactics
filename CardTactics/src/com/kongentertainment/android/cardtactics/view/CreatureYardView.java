@@ -52,8 +52,8 @@ public class CreatureYardView {
         for (int i=0; i < x; i++) {
             for (int j=0; j < y; j++) {
                 //if occupied
-                if (!mCreatureYard.isEmpty(x, y)) {
-                    int cardID = mCreatureYard.getCreature(x, y).getID();                    
+                if (!mCreatureYard.isEmpty(i, j)) {
+                    int cardID = mCreatureYard.getCreature(i, j).getID();                    
                     Bitmap bitmap = mCardViewManager.getBigCard(cardID);
                     //draw a card there
                     int xCoord = YARD_X_POS + CELL_WIDTH  * x;
