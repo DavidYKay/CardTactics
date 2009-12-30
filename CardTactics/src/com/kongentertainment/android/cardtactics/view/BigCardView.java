@@ -36,6 +36,24 @@ public class BigCardView extends CardView {
 
     public boolean onTouchEvent(MotionEvent motionEvent) {
     	Log.d("BigCardView", "Touch event felt by BigCardView!");
-		return true;    	
+
+        final float x = motionEvent.getX();
+        final float y = motionEvent.getY();
+    	switch(motionEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                //if (mEngine.canStartLineAt(x, y)) {
+                //    mDirectionPoint =
+                //            new DirectionPoint(x, y);
+                //}
+                return true;
+            case MotionEvent.ACTION_MOVE:
+                mPosX = (int) x - (BIG_CARD_WIDTH / 2);
+                mPosY = (int) y - (BIG_CARD_HEIGHT / 2);
+                return true;
+            case MotionEvent.ACTION_UP:
+                return true;
+            default:
+                return true;    	
+        }
     }
 }
