@@ -11,18 +11,10 @@ import com.kongentertainment.android.cardtactics.model.entities.Card;
  * @author dk
  *
  */
-public abstract class CardView extends View {
-//	public CardView(Context context) {
-//		super(context);
-//		// TODO Auto-generated constructor stub
-//	}
+public abstract class CardView extends WidgetView {
 
 	/** We hold a card entity so we know what we're drawing */
 	protected Card mCard;
-    /** X Position on canvas */
-    protected int mPosX;
-    /** Y Position on canvas */
-    protected int mPosY;
 
 	/** The image occupying the top half of the card */
 	protected Drawable mTopImage;
@@ -37,11 +29,5 @@ public abstract class CardView extends View {
     
     public Card getCard() {
         return mCard;
-    }
-    public int getPosX() {
-        return mPosX;
-    }
-    public int getPosY() {
-        return mPosY;
     }
 }

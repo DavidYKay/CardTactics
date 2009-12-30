@@ -24,7 +24,7 @@ import com.kongentertainment.android.cardtactics.model.entities.CreatureCard;
  * Class GameView
  */ 
 
-public class GameView extends SurfaceView implements SurfaceHolder.Callback {
+public class GameView extends SurfaceView implements SurfaceHolder.Callback, ViewConstants {
 	public class GameViewThread extends Thread {
 		
 		 /** The state of the game. One of MYTURN, HISTURN, PAUSE, LOSE, or WIN */
@@ -378,9 +378,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         //Check if we're inside the bigCard's area
         final float x = motionEvent.getX();
         final float y = motionEvent.getY();
-        BigCardView bigCardView = getThread().getBigCardView(); 
-        if (x > bigCardView.getPosX() &&
-            y > bigCardView.getPosY()
+        BigCardView bigCardView = getThread().getBigCardView();
+        final int posX = bigCardView.getPosX();
+        final int posY = bigCardView.getPosY();
+        final int right  = posX + BIG_CARD_WIDTH;
+        final int bottom = posY + BIG_CARD_HEIGHT;
+        if (
+            (x > posX && x < right) && 
+            (y > bigCardView.getPosY() && y < bottom)
         ) {
             //if we are, pass it on
             return bigCardView.onTouchEvent(motionEvent);
