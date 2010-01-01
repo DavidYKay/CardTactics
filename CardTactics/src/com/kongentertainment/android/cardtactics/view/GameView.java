@@ -109,8 +109,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
 						}
 					}
 				}
-                mHomeYardView    = new CreatureYardView(creatureYard, mCardViewManager, PlayerType.HOME);
-                mVisitorYardView = new CreatureYardView(creatureYard, mCardViewManager, PlayerType.VISITOR);
+                mHomeYardView    = new CreatureYardView(creatureYard, this, PlayerType.HOME);
+                mVisitorYardView = new CreatureYardView(creatureYard, this, PlayerType.VISITOR);
 
 				//CreatureCard newCard = new CreatureCard(1);
 				//CreatureCardView creatureCardView = new CreatureCardView(context, newCard);
@@ -390,6 +390,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         }
     }
     
+	//TODO Delegate hit detection to the OS
     public boolean onTouchEvent(MotionEvent motionEvent) {
     	Log.d("GameView", "Touch event felt by GameView!");
         //Check if we're inside the bigCard's area
@@ -400,13 +401,17 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         final int posY = bigCardView.getPosY();
         final int right  = posX + BIG_CARD_WIDTH;
         final int bottom = posY + BIG_CARD_HEIGHT;
-        if (
+        if ( //Big card detection
             (x > posX && x < right) && 
-            (y > bigCardView.getPosY() && y < bottom)
+            (y > posY && y < bottom)
         ) {
             //if we are, pass it on
             return bigCardView.onTouchEvent(motionEvent);
-        }
+        } else if ( //Creature yard detection
+			true
+		) {
+
+		}
 		return false;    	
     }
     

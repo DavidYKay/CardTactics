@@ -5,9 +5,10 @@ import android.graphics.Canvas;
 
 import com.kongentertainment.android.cardtactics.model.entities.CreatureYard;
 import com.kongentertainment.android.cardtactics.model.entities.PlayerType;
+import com.kongentertainment.android.cardtactics.view.GameView.GameViewThread;
 
 //TODO Extend widgetview
-public class CreatureYardView {
+public class CreatureYardView extends WidgetView {
     //PERF: Chop these down to shorts/chars if need be
     private int mPosX;
     private int mPosY;
@@ -18,10 +19,11 @@ public class CreatureYardView {
     private CreatureYard mCreatureYard;
 	private CardViewManager mCardViewManager;
 
-	//TODO Consider passing the GameViewThread instead of the CardViewManager
-	public CreatureYardView(CreatureYard creatureYard, CardViewManager cardViewManager, PlayerType playerType) {
+	public CreatureYardView(CreatureYard creatureYard, GameViewThread gameViewThread, PlayerType playerType) {
+		super(gameViewThread.getContext());
         mCreatureYard    = creatureYard;
-        mCardViewManager = cardViewManager;
+        mCardViewManager = gameViewThread.getCardViewManager();
+		
 		//Get mPosX and mPosY from playerType
 		if (playerType == PlayerType.HOME) {
 			mPosX = 150;
@@ -30,8 +32,7 @@ public class CreatureYardView {
 			mPosX = 150;
 			mPosY = 0;
 		}
-    }
-
+	}
     /**
      * The meat of the class. This fetches the relevant bitmaps and draws them 
      * in the proper positions.
