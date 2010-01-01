@@ -91,18 +91,23 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
 
                 //DEBUG CODE, must replace
                 mCardViewManager  = new CardViewManager(res);
-                Card bigCard = new CreatureCard("Debug");
+                Card bigCard = new CreatureCard(1);
                 mBigCardView = new BigCardView (bigCard, this);
 
 				//INIT the creature yards. (Move this to the model)
 				int yard_x = 3;
 				int yard_y = 2;
 				CreatureYard creatureYard = new CreatureYard(yard_x, yard_y);
-				CreatureCard creature = new CreatureCard("Debug");
+				CreatureCard creature      = new CreatureCard(1);
+				CreatureCard otherCreature = new CreatureCard(2);
 				for (int x=0; x<yard_x; x++) {
 					for (int y=0; y<yard_y; y++) {
 						try {
-							creatureYard.addCreature(creature, x, y);
+							if (y % 2 == 0) {
+								creatureYard.addCreature(creature, x, y);
+							} else {
+								creatureYard.addCreature(otherCreature, x, y);
+							}
 						} catch (InvalidMoveException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();

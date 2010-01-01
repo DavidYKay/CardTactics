@@ -18,6 +18,7 @@ public class CreatureYardView extends WidgetView {
     /** The Creature Yard to pull data from */
     private CreatureYard mCreatureYard;
 	private CardViewManager mCardViewManager;
+	private boolean mHome;
 
 	public CreatureYardView(CreatureYard creatureYard, GameViewThread gameViewThread, PlayerType playerType) {
 		super(gameViewThread.getContext());
@@ -26,9 +27,11 @@ public class CreatureYardView extends WidgetView {
 		
 		//Get mPosX and mPosY from playerType
 		if (playerType == PlayerType.HOME) {
+			mHome = true;
 			mPosX = 150;
 			mPosY = 160;
 		} else {
+			mHome = false;
 			mPosX = 150;
 			mPosY = 0;
 		}
@@ -38,22 +41,41 @@ public class CreatureYardView extends WidgetView {
      * in the proper positions.
      */
     public void draw(Canvas canvas) {
-        int x = mCreatureYard.getWidth();
-        int y = mCreatureYard.getHeight();
-        //For each position
-        
-        for (int i=0; i < x; i++) {
-            for (int j=0; j < y; j++) {
-                //if occupied
-                if (!mCreatureYard.isEmpty(i, j)) {
-                    int cardID = mCreatureYard.getCreature(i, j).getID();                    
-                    Bitmap bitmap = mCardViewManager.getSmallCard(cardID);
-                    //draw a card there
-                    int xCoord = mPosX + (CELL_WIDTH  * i);
-                    int yCoord = mPosY + (CELL_HEIGHT * j);
-                    canvas.drawBitmap(bitmap, xCoord, yCoord, null);            
-                } //else keep going
-            }
-        }
+    	final int x = mCreatureYard.getWidth();
+        final int y = mCreatureYard.getHeight();
+		//TODO: Consolidate/shorten this code.
+        if (mHome) {        
+        	//For each position
+        	for (int j=0; j < y; j++) {
+        		for (int i=0; i < x; i++) {        		
+        			//if occupied
+        			if (!mCreatureYard.isEmpty(i, j)) {
+        				int cardID = mCreatureYard.getCreature(i, j).getID();                    
+        				Bitmap bitmap = mCardViewManager.getSmallCard(cardID);
+        				//draw a card there
+        				int xCoord = mPosX + (CELL_WIDTH  * i);
+        				int yCoord = mPosY + (CELL_HEIGHT * j);
+        				canvas.drawBitmap(bitmap, xCoord, yCoord, null);            
+        			} //else keep going
+        		}
+        	}
+    	} else {
+    		//For each position
+    		for (int j=0; j < y; j++) {
+				//flip the row since we're inverting things 
+				int row = j ^ 1;
+    			for (int i=0; i < x; i++) {
+                    //if occupied
+                    if (!mCreatureYard.isEmpty(i, row)) {
+                        int cardID = mCreatureYard.getCreature(i, row).getID();                    
+                        Bitmap bitmap = mCardViewManager.getSmallCard(cardID);
+                        //draw a card there
+                        int xCoord = mPosX + (CELL_WIDTH  * i);
+                        int yCoord = mPosY + (CELL_HEIGHT * j);
+                        canvas.drawBitmap(bitmap, xCoord, yCoord, null);            
+                    } //else keep going
+                }
+            }    		
+    	}    	
     }
 }
