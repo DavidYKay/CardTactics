@@ -14,11 +14,13 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.RelativeLayout;
 
 import com.kongentertainment.android.cardtactics.R;
 import com.kongentertainment.android.cardtactics.model.entities.Card;
 import com.kongentertainment.android.cardtactics.model.entities.CreatureCard;
+import com.kongentertainment.android.cardtactics.model.entities.CreatureYard;
+import com.kongentertainment.android.cardtactics.model.entities.PlayerType;
+import com.kongentertainment.android.cardtactics.model.exceptions.InvalidMoveException;
 
 /**
  * Class GameView
@@ -62,11 +64,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
 		 /** Scratch rect object. */
 		private RectF mScratchRect;
 		
-		/** Relative layout holding buttons, etc */
-		//private RelativeLayout mRelativeLayout;
-
         /** Our copy of the view on the player's creature yard */
-        private CreatureYardView mCreatureYardView;
+        private CreatureYardView mHomeYardView;
+        /** Our copy of the view on the opponents's creature yard */
+        private CreatureYardView mVisitorYardView;
+
         /** Holds all the bitmaps for all the cards */
         private CardViewManager mCardViewManager;
         /** The large card preview */
@@ -89,15 +91,29 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
 
                 //DEBUG CODE, must replace
                 mCardViewManager  = new CardViewManager(res);
-                mCreatureYardView = new CreatureYardView("Debug", mCardViewManager);
                 Card bigCard = new CreatureCard("Debug");
                 mBigCardView = new BigCardView (bigCard, this);
 
-				//mRelativeLayout = (RelativeLayout) findViewById(R.id.gameRelativeLayout);
+				//INIT the creature yards. (Move this to the model)
+				int yard_x = 3;
+				int yard_y = 2;
+				CreatureYard creatureYard = new CreatureYard(yard_x, yard_y);
+				CreatureCard creature = new CreatureCard("Debug");
+				for (int x=0; x<yard_x; x++) {
+					for (int y=0; y<yard_y; y++) {
+						try {
+							creatureYard.addCreature(creature, x, y);
+						} catch (InvalidMoveException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+                mHomeYardView    = new CreatureYardView(creatureYard, mCardViewManager, PlayerType.HOME);
+                mVisitorYardView = new CreatureYardView(creatureYard, mCardViewManager, PlayerType.VISITOR);
 
 				//CreatureCard newCard = new CreatureCard(1);
 				//CreatureCardView creatureCardView = new CreatureCardView(context, newCard);
-				//mRelativeLayout.addView(creatureCardView);
 
 	            // load background image as a Bitmap instead of a Drawable b/c
 	            // we don't need to transform it and it's faster to draw this way
@@ -162,8 +178,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
             //draw anything we haven't implemented programatically yet
             testDraw(canvas);
             
-            //Player's creature yard
-            mCreatureYardView.draw(canvas);
+            mHomeYardView.draw(canvas);
+            mVisitorYardView.draw(canvas);
 
             mBigCardView.draw(canvas);
 
@@ -193,15 +209,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
 			//Resource items
 			canvas.drawBitmap(mResourceSymbol, 379, 214, null);
 			canvas.drawBitmap(mResourceCounter, 363, 183, null);
+
 			//OPPONENT
 			
 			//Resource items
 			canvas.drawBitmap(mResourceSymbol, 379, 10, null); 
 			canvas.drawBitmap(mResourceCounter, 363, 102, null);            
 			//Opponent's back row
-			canvas.drawBitmap(mLittleCard, 120, 1, null);            
-			canvas.drawBitmap(mLittleCard, 192, 1, null);            
-			canvas.drawBitmap(mLittleCard, 264, 1, null);            
+			//canvas.drawBitmap(mLittleCard, 120, 1, null);            
+			//canvas.drawBitmap(mLittleCard, 192, 1, null);            
+			//canvas.drawBitmap(mLittleCard, 264, 1, null);            
 			
 			//Opponent's front row
 			//canvas.drawBitmap(mLittleCard, 264, 79, null);            
@@ -404,5 +421,4 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
     public GameViewThread getThread() {
         return thread;
     }
-
 }

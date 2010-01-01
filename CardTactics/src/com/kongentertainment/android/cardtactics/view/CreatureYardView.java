@@ -3,45 +3,33 @@ package com.kongentertainment.android.cardtactics.view;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-import com.kongentertainment.android.cardtactics.model.entities.CreatureCard;
 import com.kongentertainment.android.cardtactics.model.entities.CreatureYard;
-import com.kongentertainment.android.cardtactics.model.exceptions.InvalidMoveException;
+import com.kongentertainment.android.cardtactics.model.entities.PlayerType;
 
+//TODO Extend widgetview
 public class CreatureYardView {
     //PERF: Chop these down to shorts/chars if need be
     private int mPosX;
     private int mPosY;
     private static int CELL_WIDTH  = 66;
-    private static int CELL_HEIGHT = 75;
+    private static int CELL_HEIGHT = 80;
 
     /** The Creature Yard to pull data from */
     private CreatureYard mCreatureYard;
 	private CardViewManager mCardViewManager;
 
-    /** DEBUG ONLY */
-    public CreatureYardView(String debug, CardViewManager cardViewManager) {
-    	mCardViewManager = cardViewManager;
-        //TODO: Init these from parameter, based on right/left
-    	mPosX = 150;
-        mPosY = 160;
-
-        int yard_x = 3;
-        int yard_y = 2;
-        mCreatureYard = new CreatureYard(yard_x, yard_y);
-        CreatureCard creature = new CreatureCard("Debug");
-        for (int x=0; x<yard_x; x++) {
-            for (int y=0; y<yard_y; y++) {
-                try {
-					mCreatureYard.addCreature(creature, x, y);
-				} catch (InvalidMoveException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            }
-        }
-    }
-    public CreatureYardView(CreatureYard creatureYard) {
-        mCreatureYard = creatureYard;
+	//TODO Consider passing the GameViewThread instead of the CardViewManager
+	public CreatureYardView(CreatureYard creatureYard, CardViewManager cardViewManager, PlayerType playerType) {
+        mCreatureYard    = creatureYard;
+        mCardViewManager = cardViewManager;
+		//Get mPosX and mPosY from playerType
+		if (playerType == PlayerType.HOME) {
+			mPosX = 150;
+			mPosY = 160;
+		} else {
+			mPosX = 150;
+			mPosY = 0;
+		}
     }
 
     /**
