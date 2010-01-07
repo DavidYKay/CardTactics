@@ -12,11 +12,11 @@
             </intent-filter>
         </activity>
 
-	<activity android:launchMode="singleTask" android:name=".SkirmishActivity"></activity>
-    <activity android:launchMode="singleTask" android:name=".OnlineActivity"></activity>
-    <activity android:launchMode="singleTask" android:name=".SettingsActivity"></activity>
+		<activity android:launchMode="singleTask" android:name=".SkirmishActivity"></activity>
+		<activity android:launchMode="singleTask" android:name=".OnlineActivity"></activity>
+		<activity android:launchMode="singleTask" android:name=".SettingsActivity"></activity>
     
-</application>
+	</application>
     <uses-sdk android:minSdkVersion="4" />
 
 </manifest> 

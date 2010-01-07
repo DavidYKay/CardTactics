@@ -6,6 +6,8 @@ import com.kongentertainment.android.cardtactics.model.exceptions.InvalidMoveExc
  * Class to represent the area which a player's creatures live/move.
  */
 public class CreatureYard {
+	private static final int BACK_ROW = 0;
+	private static final int FRONT_ROW = 1;
     
     private CreatureCard[][] mGrid;
 
@@ -44,6 +46,18 @@ public class CreatureYard {
         }
     }
 
+	/**
+	 * Currently this class presumes two rows
+	 * @throws InvalidMoveException 
+	 */
+	public void pushCreature(int column, boolean forward) throws InvalidMoveException {
+		if (forward) {
+			moveCreature(column, BACK_ROW, column, FRONT_ROW);
+		} else {
+			moveCreature(column, FRONT_ROW, column, BACK_ROW);
+		}
+	}
+
     public void moveCreature(int startX, int startY, int destX, int destY) throws InvalidMoveException {
         if (mGrid[startX][startY] == null ||
              mGrid[destX][destY] != null
@@ -67,4 +81,10 @@ public class CreatureYard {
         } 
         return false;
     }
+
+	public boolean isLegalColumn(int column) {
+		if (column >= 0 && column < mGrid.length)
+			return true;
+		return false;
+	}
 }

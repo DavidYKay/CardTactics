@@ -106,7 +106,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
 							if (y % 2 == 0) {
 								creatureYard.addCreature(creature, x, y);
 							} else {
-								creatureYard.addCreature(otherCreature, x, y);
+								//creatureYard.addCreature(otherCreature, x, y);
 							}
 						} catch (InvalidMoveException e) {
 							// TODO Auto-generated catch block
@@ -134,16 +134,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
                     R.drawable.resourcesymbol);
 				mResourceCounter = BitmapFactory.decodeResource(res,
                     R.drawable.resourcecounter);
-	            /*
-	            // Initialize paints for speedometer
-	            mLinePaint = new Paint();
-	            mLinePaint.setAntiAlias(true);
-	            mLinePaint.setARGB(255, 0, 255, 0);
-
-	            mLinePaintBad = new Paint();
-	            mLinePaintBad.setAntiAlias(true);
-	            mLinePaintBad.setARGB(255, 120, 180, 0);
-	            */
         }
 		
 		@Override
@@ -335,6 +325,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         public BigCardView getBigCardView() {
             return mBigCardView;
         }
+        public CreatureYardView getHomeYardView() {
+            return mHomeYardView;
+        }
     }
 	
 	 /** The thread that actually draws the animation */
@@ -402,20 +395,27 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         final float x = motionEvent.getX();
         final float y = motionEvent.getY();
         BigCardView bigCardView = getThread().getBigCardView();
-        final int posX = bigCardView.getPosX();
-        final int posY = bigCardView.getPosY();
-        final int right  = posX + BIG_CARD_WIDTH;
-        final int bottom = posY + BIG_CARD_HEIGHT;
+        int bigCardX = bigCardView.getPosX();
+        int bigCardY = bigCardView.getPosY();
+        int bigCardRight  = bigCardX + BIG_CARD_WIDTH;
+        int bigCardBottom = bigCardY + BIG_CARD_HEIGHT;
+        
+        CreatureYardView creatureYardView = getThread().getHomeYardView();
+        int creatureYardX = creatureYardView.getPosX();
+        int creatureYardY = creatureYardView.getPosY();
+        int creatureYardRight  = creatureYardX + CREATURE_YARD_WIDTH;
+        int creatureYardBottom = creatureYardY + CREATURE_YARD_HEIGHT;
         if ( //Big card detection
-            (x > posX && x < right) && 
-            (y > posY && y < bottom)
+            (x > bigCardX && x < bigCardRight) && 
+            (y > bigCardY && y < bigCardBottom)
         ) {
             //if we are, pass it on
             return bigCardView.onTouchEvent(motionEvent);
         } else if ( //Creature yard detection
-			true
+            (x > creatureYardX && x < creatureYardRight) && 
+            (y > creatureYardY && y < creatureYardBottom)
 		) {
-
+            return creatureYardView.onTouchEvent(motionEvent);
 		}
 		return false;    	
     }

@@ -1,17 +1,19 @@
 package com.kongentertainment.android.cardtactics.view;
 
+import android.gesture.GesturePoint;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.util.Log;
+import android.view.MotionEvent;
 
 import com.kongentertainment.android.cardtactics.model.entities.CreatureYard;
 import com.kongentertainment.android.cardtactics.model.entities.PlayerType;
+import com.kongentertainment.android.cardtactics.model.exceptions.InvalidMoveException;
 import com.kongentertainment.android.cardtactics.view.GameView.GameViewThread;
 
 //TODO Extend widgetview
 public class CreatureYardView extends WidgetView {
     //PERF: Chop these down to shorts/chars if need be
-    private int mPosX;
-    private int mPosY;
     private static int CELL_WIDTH  = 66;
     private static int CELL_HEIGHT = 80;
 
@@ -19,6 +21,8 @@ public class CreatureYardView extends WidgetView {
     private CreatureYard mCreatureYard;
 	private CardViewManager mCardViewManager;
 	private boolean mHome;
+	private GesturePoint mLastPoint;
+	private float MINIMUM_GESTURE_Y = 0.0f;
 
 	public CreatureYardView(CreatureYard creatureYard, GameViewThread gameViewThread, PlayerType playerType) {
 		super(gameViewThread.getContext());
@@ -78,4 +82,44 @@ public class CreatureYardView extends WidgetView {
             }    		
     	}    	
     }
+
+    public boolean onTouchEvent(MotionEvent motionEvent) {
+    	Log.d("CreatureYardView", "Touch event felt by CreatureYardView!");
+
+        GesturePoint point = new GesturePoint( motionEvent.getX(), motionEvent.getY(), motionEvent.getEventTime());
+    	switch(motionEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+				mLastPoint = point;
+                return true;
+            case MotionEvent.ACTION_MOVE:
+                return true;
+            case MotionEvent.ACTION_UP:
+				float deltaY = point.y - mLastPoint.y ;
+				if (Math.abs(deltaY) > MINIMUM_GESTURE_Y ) {
+					int column = getColumn(mLastPoint.x);
+					boolean forward = deltaY > 0 ? true : false;
+					if (mCreatureYard.isLegalColumn(column) ) {
+						try {
+							mCreatureYard.pushCreature(column, forward);
+						} catch (InvalidMoveException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				} 	                
+				return true;
+            default:
+                return true;    	
+        }
+    }
+	private int getColumn(float x) {
+		return (int) (x - mPosX) / CELL_WIDTH;
+
+		//mPosX -> mPosX + CELL_WIDTH
+		//return 0;
+		//mPosX + CELL_WIDTH -> mPosX + 2*CELL_WIDTH
+		//return 1;
+		//mPosX + 2*CELL_WIDTH -> mPosX + 3*CELL_WIDTH
+		//return 2;
+	}
 }

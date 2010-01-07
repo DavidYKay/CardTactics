@@ -2,7 +2,6 @@ package com.kongentertainment.android.cardtactics.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.view.View;
 
 import com.kongentertainment.android.cardtactics.model.entities.Card;
 
